@@ -60,6 +60,6 @@
     "benchmark": "~1.0.0",
     "browserify": "~3.24.2",
     "yuidocjs": "~0.3.48",
-    "mojo-paperclip": "^0.3.7"
+    "mojo-paperclip": "0.4.x"
   }
 }

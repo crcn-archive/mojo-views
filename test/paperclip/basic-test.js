@@ -4,6 +4,7 @@ bindable   = require("bindable"),
 paperclip  = require("paperclip"),
 nofactor   = require("nofactor");
 
+if(false)
 describe("paperclip/basic#", function () {
 
   var app;

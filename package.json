@@ -1,6 +1,6 @@
 {
   "name": "mojo-views",
-  "version": "0.0.6",
+  "version": "0.0.7",
   "description": "modular mv+ JavaScript framework for node, and the web",
   "main": "./lib/index.js",
   "jam": {
@@ -49,7 +49,8 @@
     "mojo-animator": "0.0.x",
     "mojo-application": "0.0.x",
     "frills": "0.0.2",
-    "mojo-registered-classes": "0.0.x"
+    "mojo-registered-classes": "0.0.x",
+    "noselector": "0.0.x"
   },
   "devDependencies": {
     "expect.js": "~0.2.0",

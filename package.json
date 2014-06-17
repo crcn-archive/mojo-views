@@ -1,6 +1,6 @@
 {
   "name": "mojo-views",
-  "version": "0.0.16",
+  "version": "0.0.17",
   "description": "modular mv+ JavaScript framework for node, and the web",
   "main": "./lib/index.js",
   "jam": {
@@ -38,7 +38,6 @@
     "nofactor": "0.0.x",
     "bindable-decor-bindings": "0.1.x",
     "underscore": "1.4.x",
-    "mojo-paperclip": "0.3.x",
     "protoclass": "0.0.5",
     "subindable": "0.1.x",
     "runlater": "0.0.x",

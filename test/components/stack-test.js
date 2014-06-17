@@ -101,4 +101,56 @@ describe("stack#", function () {
     expect(pages.get("currentSection.name")).to.be("state1");
 
   });
+
+  it("throws an error if a state doesn't exist", function () {
+    var PagesView = views.Stack.extend({
+      name: "main",
+      sections: {
+        state1: views.Base.extend({
+          didCreateSection: function () {
+            this.section.append(this.application.nodeFactory.createTextNode("state1"))
+          }
+        }),
+        state2: views.Base.extend({
+          didCreateSection: function () {
+            this.section.append(this.application.nodeFactory.createTextNode("state2"));
+          }
+        })
+      }
+    });
+
+    var pages = new PagesView();
+    pages.render();
+
+    try {
+      pages.set("state", "state99");
+    } catch (e) {
+      expect(e.message).to.be("state 'state99' does not exist");
+    }
+  });
+
+  it("doesn't set the state if state is undefined", function () {
+    var PagesView = views.Stack.extend({
+      name: "main",
+      sections: {
+        state1: views.Base.extend({
+          didCreateSection: function () {
+            this.section.append(this.application.nodeFactory.createTextNode("state1"))
+          }
+        }),
+        state2: views.Base.extend({
+          didCreateSection: function () {
+            this.section.append(this.application.nodeFactory.createTextNode("state2"));
+          }
+        })
+      }
+    });
+
+    var pages = new PagesView();
+    pages.render();
+    pages.set("state", "state1");
+    expect(pages.get("currentSection.name")).to.be("state1");
+    pages.set("state", void 0);
+    expect(pages.get("currentSection.name")).to.be("state1");
+  });
 });

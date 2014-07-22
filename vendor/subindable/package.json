@@ -1,0 +1,39 @@
+{
+  "name": "subindable",
+  "version": "0.1.6",
+  "description": "subindable.js =============",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/classdojo/subindable.js.git"
+  },
+  "author": "",
+  "license": "BSD-2-Clause",
+  "bugs": {
+    "url": "https://github.com/classdojo/subindable.js/issues"
+  },
+  "dependencies": {
+    "bindable": "0.5.x",
+    "type-component": "0.0.1",
+    "underscore": "~1.5.2",
+    "protoclass": "0.0.x",
+    "paperclip": "0.3.x"
+  },
+  "devDependencies": {
+    "expect.js": "~0.2.0",
+    "mocha": "~1.15.1",
+    "benchmark": "~1.0.0"
+  },
+  "readme": "Subindable.js allows you to inherit properties from a parent bindable.Object. It's used in Mojo.js. [![Alt ci](https://travis-ci.org/classdojo/subindable.js.png)](https://travis-ci.org/classdojo/subindable.js)\n\n```javascript\nvar subindable = require(\"subindable\");\n\nvar p = new subindable.Object({ name: \"craig\" }),\nc     = new subindable.Object({}, p); // second param = parent\n\n\nconsole.log(c.get(\"name\")); // craig\np.set(\"name\", \"jake\"));\nconsole.log(c.get(\"name\")); // jake\n\n```\n",
+  "readmeFilename": "README.md",
+  "homepage": "https://github.com/classdojo/subindable.js",
+  "_id": "subindable@0.1.6",
+  "dist": {
+    "shasum": "203019d579c57d12930621a89deba85c095268ab"
+  },
+  "_from": "subindable@0.1.x",
+  "_resolved": "http://registry.npmjs.org/subindable/-/subindable-0.1.6.tgz"
+}

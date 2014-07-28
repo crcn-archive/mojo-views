@@ -6,7 +6,7 @@ mojoViews       = require("../..");
 describe("core/basic-view#", function () {
 
   var app = mojoViews.mainApplication;
-  app.views.register("basic", mojoViews.Base);
+  app.views.register("basic", mojoViews.Container);
 
   // - cannot remove before render
   // - cannot render if rendered
@@ -17,7 +17,7 @@ describe("core/basic-view#", function () {
    */
 
   it("can create a view apart from the application", function () {
-    var view = new mojoViews.Base();
+    var view = new mojoViews.Container();
     expect(view.__isView).to.be(true);
     view.render();
     expect(view.application).to.be(mojoViews.mainApplication);
@@ -28,7 +28,7 @@ describe("core/basic-view#", function () {
    */
 
   it("can pass appliation to the second param", function () {
-    var view = new mojoViews.Base({}, app);
+    var view = new mojoViews.Container({}, app);
     expect(view.application).to.be(app);
     // expect(view.models).to.be(app.models);
   });
@@ -37,7 +37,7 @@ describe("core/basic-view#", function () {
    */
 
   it("can extend a view", function () {
-    var SubView = mojoViews.Base.extend({ name: "blah!" }),
+    var SubView = mojoViews.Container.extend({ name: "blah!" }),
     v = new SubView();
     expect(v.constructor).to.be(SubView);
     expect(v.name).to.be("blah!");
@@ -48,7 +48,7 @@ describe("core/basic-view#", function () {
    */
 
   it("returns a fragment on render", function () {
-    expect(new mojoViews.Base({}, app).render().nodeType).to.be(11);
+    expect(new mojoViews.Container({}, app).render().nodeType).to.be(11);
   })
 
   /**
@@ -90,7 +90,7 @@ describe("core/basic-view#", function () {
    */
 
   it("has the right path", function () {
-    expect(app.views.create("basic").path()).to.be("BaseView");
+    expect(app.views.create("basic").path()).to.be("ContainerView");
   });
 
   /**
@@ -196,7 +196,7 @@ describe("core/basic-view#", function () {
    */
 
   it("can render() a view after it's been dispose()d", function () {
-    var view = new mojoViews.Base({}, app);
+    var view = new mojoViews.Container({}, app);
     view.__decorators = undefined;
     view.render();
     view.dispose();
@@ -206,7 +206,7 @@ describe("core/basic-view#", function () {
    */
 
   it("will call render", function () {
-    var view = new mojoViews.Base({}, app), c = 0, e= 0;
+    var view = new mojoViews.Container({}, app), c = 0, e= 0;
     view.willRender = function () {
       c++;
     }
@@ -225,7 +225,7 @@ describe("core/basic-view#", function () {
    */
 
   it("did call render", function () {
-    var view = new mojoViews.Base({}, app), c = 0, e= 0;
+    var view = new mojoViews.Container({}, app), c = 0, e= 0;
     view.didRender = function () {
       c++;
     }
@@ -244,7 +244,7 @@ describe("core/basic-view#", function () {
    */
 
   it("will call remove", function () {
-    var view = new mojoViews.Base({}, app), c = 0, e= 0;
+    var view = new mojoViews.Container({}, app), c = 0, e= 0;
     view.render();
     view.willRemove = function () {
       c++;
@@ -264,7 +264,7 @@ describe("core/basic-view#", function () {
    */
 
   it("did call remove", function () {
-    var view = new mojoViews.Base({}, app), c = 0, e= 0;
+    var view = new mojoViews.Container({}, app), c = 0, e= 0;
     view.render();
     view.didRemove = function () {
       c++;

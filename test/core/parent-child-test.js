@@ -8,8 +8,8 @@ describe("parent/child#", function () {
 
   var app = mojoViews.mainApplication,
   app2 = mojoViews.mainApplication;
-  app.views.register("basic", mojoViews.Base);
-  app2.views.register("basic", mojoViews.Base);
+  app.views.register("basic", mojoViews.Container);
+  app2.views.register("basic", mojoViews.Container);
 
   /**
    */
@@ -19,7 +19,7 @@ describe("parent/child#", function () {
     child = app.views.create("basic"),
 
     // outside of application
-    child2 = new mojoViews.Base();
+    child2 = new mojoViews.Container();
 
     parent.setChild("someChild", child);
     parent.setChild("someChild2", child2);
@@ -96,7 +96,7 @@ describe("parent/child#", function () {
     var parent = app.views.create("basic"),
     child      = app.views.create("basic");
     parent.setChild("child", child);
-    expect(child.path()).to.be("BaseView.BaseView");
+    expect(child.path()).to.be("ContainerView.ContainerView");
   });
 
   /**
@@ -170,9 +170,9 @@ describe("parent/child#", function () {
 
   /*it("can re-use a view after it's been disposed, and maintains children", function () {
 
-    var p = new mojoViews.Base({
+    var p = new mojoViews.Container({
       sections: {
-        child: mojoViews.Base
+        child: mojoViews.Container
       }
     }, app), c, cs, c2, cs2;
 

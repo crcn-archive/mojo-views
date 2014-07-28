@@ -7,15 +7,15 @@ describe("decorators/sections#", function () {
 
   var app = mojoViews.mainApplication, 
   app2 = mojoViews.mainApplication;
-  app.views.register("basic", mojoViews.Base);
-  app2.views.register("basic", mojoViews.Base);
+  app.views.register("basic", mojoViews.Container);
+  app2.views.register("basic", mojoViews.Container);
 
   
   it("can define a section with a class", function () {
 
-    var ParentView = mojoViews.Base.extend({
+    var ParentView = mojoViews.Container.extend({
       sections: {
-        child: mojoViews.Base
+        child: mojoViews.Container
       }
     });
 
@@ -23,16 +23,16 @@ describe("decorators/sections#", function () {
 
     var p = new ParentView({}, app), c;
     p.render();
-    expect((c = p.get("sections.child")).constructor).to.be(mojoViews.Base);
+    expect((c = p.get("sections.child")).constructor).to.be(mojoViews.Container);
     
   });
 
   it("can define a section when the type is a class", function () {
 
-    var ParentView = mojoViews.Base.extend({
+    var ParentView = mojoViews.Container.extend({
       sections: {
         child: {
-          type: mojoViews.Base,
+          type: mojoViews.Container,
           message: "blah"
         }
       }
@@ -44,13 +44,13 @@ describe("decorators/sections#", function () {
 
     p.render();
     p.get("sections.child").render();
-    expect(p.get("sections.child").constructor).to.be(mojoViews.Base);
+    expect(p.get("sections.child").constructor).to.be(mojoViews.Container);
     expect(p.get("sections.child").message).to.be("blah");
   });
 
 
   it("can define a section when the type is a registered component", function () {
-    var ParentView = mojoViews.Base.extend({
+    var ParentView = mojoViews.Container.extend({
       sections: {
         child: {
           type: "basic"
@@ -62,7 +62,7 @@ describe("decorators/sections#", function () {
 
     var p = new ParentView({}, app);
     p.render();
-    expect(p.get("sections.child").constructor).to.be(mojoViews.Base);
+    expect(p.get("sections.child").constructor).to.be(mojoViews.Container);
   });
 
 
@@ -70,7 +70,7 @@ describe("decorators/sections#", function () {
   it("throws an error if the type is not found", function (next) {
     
     try {
-      var p = new mojoViews.Base({}, app).decorate({
+      var p = new mojoViews.Container({}, app).decorate({
         sections: {
           child: "doesn't exist"
         }
@@ -87,7 +87,7 @@ describe("decorators/sections#", function () {
   it("throws an error if the options is an incorrect type", function (next) {
     
     try {
-      var p = new mojoViews.Base({}, app).decorate({
+      var p = new mojoViews.Container({}, app).decorate({
         sections: {
           child: 654645
         }
@@ -101,19 +101,19 @@ describe("decorators/sections#", function () {
   });
 
   it("allows for a section to be a view object", function () {
-    var p = new mojoViews.Base({}, app).decorate({
+    var p = new mojoViews.Container({}, app).decorate({
       sections: {
-        child: new mojoViews.Base()
+        child: new mojoViews.Container()
       }
     });
     p.render();
-    expect(p.get("sections.child").constructor).to.be(mojoViews.Base);
+    expect(p.get("sections.child").constructor).to.be(mojoViews.Container);
   })
 
 
   it("throws an error if the options is invalid", function (next) {
     try {
-      var p = new mojoViews.Base({}, app).decorate({
+      var p = new mojoViews.Container({}, app).decorate({
         sections: {
           child: undefined
         }
@@ -128,14 +128,14 @@ describe("decorators/sections#", function () {
 
 
   it("can re-render a section", function () {
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
       paper: paperclip.compile(
         "{{ html: sections.child }}"
       )
     }, app).decorate({
       sections: {
         child: {
-          type: mojoViews.Base.extend({
+          type: mojoViews.Container.extend({
             paper: paperclip.compile("hi mojoViews")
           })
         }
@@ -152,10 +152,10 @@ describe("decorators/sections#", function () {
   // decorated
 
   it("maintains sections when view is instantiated multiple times", function () {
-    var SubView = mojoViews.Base.extend({
+    var SubView = mojoViews.Container.extend({
       paper: paperclip.compile("sub: {{ html: sections.child }}"),
       sections: {
-        child: mojoViews.Base.extend({
+        child: mojoViews.Container.extend({
           paper: paperclip.compile("Hello subview")
         })
       }

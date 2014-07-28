@@ -18,7 +18,7 @@ describe("paperclip/basic#", function () {
 
   it("can assign a paperclip template to a view controller", function () {
 
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
       paper: paperclip.compile("Hello World")
     }, app);
 
@@ -31,7 +31,7 @@ describe("paperclip/basic#", function () {
    */
 
   it("can bind to a view controller property", function () {
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
       name: "Craig",
       paper: paperclip.compile("Hello {{name}}")
     }, app)
@@ -47,12 +47,12 @@ describe("paperclip/basic#", function () {
 
   it("can call a function on the view controller, and maintain context", function () {
 
-    var p = new mojoViews.Base({
+    var p = new mojoViews.Container({
       name: "parent",
       parentFn: function () {
         return this.name;
       }
-    }, app), c = new mojoViews.Base({
+    }, app), c = new mojoViews.Container({
       name: "child",
       paper: paperclip.compile("Hello {{childFn()}}, {{parentFn()}}"),
       childFn: function () {
@@ -71,7 +71,7 @@ describe("paperclip/basic#", function () {
 
 
   it("can dynamically change the template", function () {
-    var view = new mojoViews.Base({ name: "craig" }, app);
+    var view = new mojoViews.Container({ name: "craig" }, app);
     view.render();
     expect(view.section.toString()).to.be("");
     view.set("paper", paperclip.compile("Hello {{name}}"))
@@ -85,7 +85,7 @@ describe("paperclip/basic#", function () {
    */
 
   it("busts if the template isn't a function", function (next) {
-    var view = new mojoViews.Base({ paper: "invalid" }, app);
+    var view = new mojoViews.Container({ paper: "invalid" }, app);
     try {
       view.render()
     } catch(e) {
@@ -98,7 +98,7 @@ describe("paperclip/basic#", function () {
    */
 
   it("cleans up the template after the view has been disposed", function () {
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
       name: "Craig",
       paper: paperclip.compile("Hello {{name}}")
     }, app);

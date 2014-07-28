@@ -15,7 +15,7 @@ describe("components/states#", function () {
   // - render, remove, dispose
 
   it("can create a states view without any views", function () {
-    new mojoViews.Base({
+    new mojoViews.Container({
       paper: pagesTemplate
     }, app).decorate({
       sections: {
@@ -27,14 +27,14 @@ describe("components/states#", function () {
   });
 
   it("can create states without setting the index", function () {
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
       paper: pagesTemplate
     }, app).decorate({
       sections: {
         pages: {
           type: "states",
           views: [
-            { class: mojoViews.Base.extend({paper:helloTemplate, name: "page 1"}), name: "page1" }
+            { class: mojoViews.Container.extend({paper:helloTemplate, name: "page 1"}), name: "page1" }
           ]
         }
       }
@@ -48,7 +48,7 @@ describe("components/states#", function () {
   });
 
   describe("can create a states view with views", function () {
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
       paper: pagesTemplate
     }, app).decorate({
       sections: {
@@ -56,8 +56,8 @@ describe("components/states#", function () {
           type: "states",
           index: 0,
           views: [
-            { class: mojoViews.Base.extend({paper:helloTemplate, name: "page 1"}), name: "page1" },
-            { class: mojoViews.Base.extend({paper:helloTemplate, name: "page 2"}), name: "page2" }
+            { class: mojoViews.Container.extend({paper:helloTemplate, name: "page 1"}), name: "page1" },
+            { class: mojoViews.Container.extend({paper:helloTemplate, name: "page 2"}), name: "page2" }
           ]
         }
       }
@@ -113,7 +113,7 @@ describe("components/states#", function () {
   });
 
   it("can create a page with the viewClass prop", function () {
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
       paper: pagesTemplate
     }, app).decorate({
       sections: {
@@ -121,7 +121,7 @@ describe("components/states#", function () {
           type: "states",
           index: 0,
           views: [
-            { viewClass: mojoViews.Base.extend({paper:helloTemplate, name: "page 1"}), name: "page1" }
+            { viewClass: mojoViews.Container.extend({paper:helloTemplate, name: "page 1"}), name: "page1" }
           ]
         }
       }
@@ -130,7 +130,7 @@ describe("components/states#", function () {
   });
 
   it("can create a page without options", function () {
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
       paper: pagesTemplate
     }, app).decorate({
       sections: {
@@ -138,7 +138,7 @@ describe("components/states#", function () {
           type: "states",
           index: 0,
           views: [
-            mojoViews.Base.extend({paper:helloTemplate, name: "page 1"})
+            mojoViews.Container.extend({paper:helloTemplate, name: "page 1"})
           ]
         }
       }
@@ -150,14 +150,14 @@ describe("components/states#", function () {
   it("can dynamically change the views", function () {
 
     var views1 = [
-      { class: mojoViews.Base.extend({paper:helloTemplate, name: "page 1"}), name: "page1" }
+      { class: mojoViews.Container.extend({paper:helloTemplate, name: "page 1"}), name: "page1" }
     ];
 
     var views2 = [
-      { class: mojoViews.Base.extend({paper:helloTemplate, name: "page 2"}), name: "page2" }
+      { class: mojoViews.Container.extend({paper:helloTemplate, name: "page 2"}), name: "page2" }
     ];
 
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
       paper: pagesTemplate
     }, app).decorate({
       sections: {

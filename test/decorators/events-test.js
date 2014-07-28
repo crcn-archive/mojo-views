@@ -17,7 +17,7 @@ describe("deorators/events#", function () {
 
   it("capture a bubbled event", function (next) {
 
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
     }, app).decorate({
       events: {
         "test": function (event, v) {
@@ -38,7 +38,7 @@ describe("deorators/events#", function () {
 
   it("can call a ref to a view method", function (next) {
 
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
       onTest: function (event, v) {
         expect(v).to.be("v");
         next();
@@ -60,7 +60,7 @@ describe("deorators/events#", function () {
 
   it("lowercases events", function () {
     var emits = 0;
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
     }, app).decorate({
       events: {
         "camelEvent": function () {
@@ -81,9 +81,9 @@ describe("deorators/events#", function () {
    */
 
   it("can listen on a DOM element", function (next) {
-    var view = new mojoViews.Base({
-      _render: function(section) {
-        section.append($("<div><a href='#' class='button'>button</a></div>")[0]);
+    var view = new mojoViews.Container({
+      willRender: function() {
+        this.section.append($("<div><a href='#' class='button'>button</a></div>")[0]);
       },
       click: function() {  
         this.$(".button").click();
@@ -105,9 +105,9 @@ describe("deorators/events#", function () {
 
   it("can listen to multiple elements", function () {
     var clicks = 0;
-    var view = new mojoViews.Base({
-      _render: function(section) {
-        section.append($("<div><a href='#' class='button button2'>button</a></div>")[0]);
+    var view = new mojoViews.Container({
+      willRender: function() {
+        this.section.append($("<div><a href='#' class='button button2'>button</a></div>")[0]);
       },
       click: function() {  
         this.$(".button").click();
@@ -135,7 +135,7 @@ describe("deorators/events#", function () {
 
   it("removes the events decorator once the view has been disposed", function () {
     var emitted = false;
-    var view = new mojoViews.Base({
+    var view = new mojoViews.Container({
       events: {
         "click .button": function() {
           emitted = true;
@@ -144,8 +144,8 @@ describe("deorators/events#", function () {
           emitted = true;
         }
       },
-      _render: function (section) {
-        section.append($("<div><a href='#' class='button'>button</a></div>")[0]);
+      willRender: function () {
+        this.section.append($("<div><a href='#' class='button'>button</a></div>")[0]);
       },
       click: function() {  
         this.$(".button").click();

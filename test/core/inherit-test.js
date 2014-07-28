@@ -6,7 +6,7 @@ mojoViews       = require("../..");
 describe("core/inherit#", function () {
 
   var app = mojoViews.mainApplication;
-  app.views.register("basic", mojoViews.Base);
+  app.views.register("basic", mojoViews.Container);
 
   /**
    */
@@ -152,7 +152,7 @@ describe("core/inherit#", function () {
    */
 
   it("sub classes inherit defined props", function () {
-    var ParentView = mojoViews.Base.extend({
+    var ParentView = mojoViews.Container.extend({
       define: ["abba"]
     }),
     SubView = ParentView.extend({

@@ -19,11 +19,11 @@ describe("stack#", function () {
     var p = new PagesView();
     p.render();
     p.set("state", "state1");
-    expect(p.get("currentSection.name")).to.be("state1");
+    expect(p.get("currentChild.name")).to.be("state1");
     p.set("state", "state2");
-    expect(p.get("currentSection.name")).to.be("state2");
+    expect(p.get("currentChild.name")).to.be("state2");
     p.set("state", "state1");
-    expect(p.get("currentSection.name")).to.be("state1");
+    expect(p.get("currentChild.name")).to.be("state1");
   });
 
   it("properly renders each state", function () {
@@ -76,14 +76,14 @@ describe("stack#", function () {
       main: "state1"
     });
 
-    expect(pages.get("currentSection.name")).to.be("state1");
+    expect(pages.get("currentChild.name")).to.be("state1");
 
     pages.set("states", {
       main: "state2"
     });
 
 
-    expect(pages.get("currentSection.name")).to.be("state2");
+    expect(pages.get("currentChild.name")).to.be("state2");
 
 
     pages.set("name", "main2");
@@ -92,13 +92,13 @@ describe("stack#", function () {
       main: "state1"
     });
 
-    expect(pages.get("currentSection.name")).to.be("state2");
+    expect(pages.get("currentChild.name")).to.be("state2");
 
     pages.set("states", {
       main2: "state1"
     });
 
-    expect(pages.get("currentSection.name")).to.be("state1");
+    expect(pages.get("currentChild.name")).to.be("state1");
 
   });
 
@@ -149,9 +149,9 @@ describe("stack#", function () {
     var pages = new PagesView();
     pages.render();
     pages.set("state", "state1");
-    expect(pages.get("currentSection.name")).to.be("state1");
+    expect(pages.get("currentChild.name")).to.be("state1");
     pages.set("state", void 0);
-    expect(pages.get("currentSection.name")).to.be("state1");
+    expect(pages.get("currentChild.name")).to.be("state1");
   });
 
   it("can create a stack view from a sections property", function () {

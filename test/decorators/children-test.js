@@ -3,7 +3,7 @@ mojoViews       = require("../.."),
 paperclip  = require("paperclip");
 
 
-describe("decorators/sections#", function () {
+describe("decorators/children#", function () {
 
   var app = mojoViews.mainApplication, 
   app2 = mojoViews.mainApplication;
@@ -14,7 +14,7 @@ describe("decorators/sections#", function () {
   it("can define a section with a class", function () {
 
     var ParentView = mojoViews.Container.extend({
-      sections: {
+      children: {
         child: mojoViews.Container
       }
     });
@@ -23,14 +23,14 @@ describe("decorators/sections#", function () {
 
     var p = new ParentView({}, app), c;
     p.render();
-    expect((c = p.get("sections.child")).constructor).to.be(mojoViews.Container);
+    expect((c = p.get("children.child")).constructor).to.be(mojoViews.Container);
     
   });
 
   it("can define a section when the type is a class", function () {
 
     var ParentView = mojoViews.Container.extend({
-      sections: {
+      children: {
         child: {
           type: mojoViews.Container,
           message: "blah"
@@ -43,15 +43,15 @@ describe("decorators/sections#", function () {
     var p = new ParentView({}, app);
 
     p.render();
-    p.get("sections.child").render();
-    expect(p.get("sections.child").constructor).to.be(mojoViews.Container);
-    expect(p.get("sections.child").message).to.be("blah");
+    p.get("children.child").render();
+    expect(p.get("children.child").constructor).to.be(mojoViews.Container);
+    expect(p.get("children.child").message).to.be("blah");
   });
 
 
   it("can define a section when the type is a registered component", function () {
     var ParentView = mojoViews.Container.extend({
-      sections: {
+      children: {
         child: {
           type: "basic"
         }
@@ -62,7 +62,7 @@ describe("decorators/sections#", function () {
 
     var p = new ParentView({}, app);
     p.render();
-    expect(p.get("sections.child").constructor).to.be(mojoViews.Container);
+    expect(p.get("children.child").constructor).to.be(mojoViews.Container);
   });
 
 
@@ -71,7 +71,7 @@ describe("decorators/sections#", function () {
     
     try {
       var p = new mojoViews.Container({}, app).decorate({
-        sections: {
+        children: {
           child: "doesn't exist"
         }
       });
@@ -88,7 +88,7 @@ describe("decorators/sections#", function () {
     
     try {
       var p = new mojoViews.Container({}, app).decorate({
-        sections: {
+        children: {
           child: 654645
         }
       });
@@ -102,19 +102,19 @@ describe("decorators/sections#", function () {
 
   it("allows for a section to be a view object", function () {
     var p = new mojoViews.Container({}, app).decorate({
-      sections: {
+      children: {
         child: new mojoViews.Container()
       }
     });
     p.render();
-    expect(p.get("sections.child").constructor).to.be(mojoViews.Container);
+    expect(p.get("children.child").constructor).to.be(mojoViews.Container);
   })
 
 
   it("throws an error if the options is invalid", function (next) {
     try {
       var p = new mojoViews.Container({}, app).decorate({
-        sections: {
+        children: {
           child: undefined
         }
       });
@@ -130,10 +130,10 @@ describe("decorators/sections#", function () {
   it("can re-render a section", function () {
     var view = new mojoViews.Container({
       paper: paperclip.compile(
-        "{{ html: sections.child }}"
+        "{{ html: children.child }}"
       )
     }, app).decorate({
-      sections: {
+      children: {
         child: {
           type: mojoViews.Container.extend({
             paper: paperclip.compile("hi mojoViews")
@@ -143,18 +143,18 @@ describe("decorators/sections#", function () {
     }), child;
 
     expect(view.render().toString()).to.be("hi mojoViews");
-    (child = view.get("sections.child")).remove();
+    (child = view.get("children.child")).remove();
     child.render();
   });
 
 
-  // tests to make sure that sections is overwritten entirely when
+  // tests to make sure that children is overwritten entirely when
   // decorated
 
-  it("maintains sections when view is instantiated multiple times", function () {
+  it("maintains children when view is instantiated multiple times", function () {
     var SubView = mojoViews.Container.extend({
-      paper: paperclip.compile("sub: {{ html: sections.child }}"),
-      sections: {
+      paper: paperclip.compile("sub: {{ html: children.child }}"),
+      children: {
         child: mojoViews.Container.extend({
           paper: paperclip.compile("Hello subview")
         })
@@ -164,16 +164,16 @@ describe("decorators/sections#", function () {
 
     var v = new SubView({}, app);
     expect(v.render().toString()).to.be("sub: Hello subview");
-    v.set("sections.child", undefined);
+    v.set("children.child", undefined);
     var v = new SubView({}, app);
     expect(v.render().toString()).to.be("sub: Hello subview");
   });
 
   it("defaults to base view if type isn't present", function () {
     var SomeView = mojoViews.Base.extend({
-      paper: paperclip.compile("a: {{ html: sections.child }}"),
+      paper: paperclip.compile("a: {{ html: children.child }}"),
       pname: "ab",
-      sections: {
+      children: {
         child: {
           paper: paperclip.compile("hello {{pname}} {{name}}")
         }

@@ -165,7 +165,8 @@ describe("core/inherit#", function () {
     expect(v.define).to.contain("abba");
     expect(v.define).to.contain("bbaa");
     expect(v.define).to.contain("sections");
-    expect(v._defined).to.have.keys("parent", "abba", "bbaa", "sections");
+    expect(v.define).to.contain("children");
+    expect(v._defined).to.have.keys("parent", "abba", "bbaa", "sections", "children");
   });
 
 }); 

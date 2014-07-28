@@ -184,5 +184,4 @@ describe("decorators/children#", function () {
     expect(sv.render().toString()).to.be("a: hello ab child");
   });
 
-
 }); 

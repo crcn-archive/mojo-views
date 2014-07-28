@@ -95,7 +95,7 @@ describe("decorators/sections#", function () {
 
       p.render();
     } catch(e) {
-      expect(e.message).to.contain("cannot create section");
+      expect(e.message).to.contain("cannot create child");
       next();
     }
   });
@@ -167,8 +167,22 @@ describe("decorators/sections#", function () {
     v.set("sections.child", undefined);
     var v = new SubView({}, app);
     expect(v.render().toString()).to.be("sub: Hello subview");
+  });
 
-  })
+  it("defaults to base view if type isn't present", function () {
+    var SomeView = mojoViews.Base.extend({
+      paper: paperclip.compile("a: {{ html: sections.child }}"),
+      pname: "ab",
+      sections: {
+        child: {
+          paper: paperclip.compile("hello {{pname}} {{name}}")
+        }
+      }
+    });
+
+    var sv = new SomeView();
+    expect(sv.render().toString()).to.be("a: hello ab child");
+  });
 
 
 }); 

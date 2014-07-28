@@ -30,7 +30,6 @@ describe("core/basic-view#", function () {
   it("can pass appliation to the second param", function () {
     var view = new mojoViews.Container({}, app);
     expect(view.application).to.be(app);
-    // expect(view.models).to.be(app.models);
   });
 
   /**
@@ -42,7 +41,6 @@ describe("core/basic-view#", function () {
     expect(v.constructor).to.be(SubView);
     expect(v.name).to.be("blah!");
   });
-
 
   /**
    */

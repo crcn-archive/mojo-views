@@ -153,4 +153,39 @@ describe("stack#", function () {
     pages.set("state", void 0);
     expect(pages.get("currentSection.name")).to.be("state1");
   });
+
+  it("can create a stack view from a sections property", function () {
+
+    var PagesView = views.Container.extend({
+      didRender: function () {
+        this.section.append(this.get("sections.pages").render());
+      },
+      sections: {
+        pages: {
+          type: "stack",
+          sections: {
+            state1: views.Base.extend({
+              didCreateSection: function () {
+                this.section.append(this.application.nodeFactory.createTextNode("state1"))
+              }
+            }),
+            state2: views.Base.extend({
+              didCreateSection: function () {
+                this.section.append(this.application.nodeFactory.createTextNode("state2"));
+              }
+            })
+          }
+        }
+      }
+    });
+
+    var pages = new PagesView();
+    var tpl = pages.render();
+    pages.set("states", { pages: "state1" });
+    expect(tpl.toString()).to.be("state1");
+    pages.set("states", { pages: "state2" });
+    expect(tpl.toString()).to.be("state2");
+    pages.set("states", { pages: "state1" });
+    expect(tpl.toString()).to.be("state1");
+  });
 });

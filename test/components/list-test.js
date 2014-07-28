@@ -18,7 +18,7 @@ describe("components/list#", function () {
   // - parentNode undefined bug
 
   it("throws an error if the source is not a bindable collection", function () {
-      var view = new mojoViews.Container({
+      var view = new mojoViews.Base({
         paper: paperclip.compile(
           "{{ html: sections.items }}"
         )
@@ -27,7 +27,7 @@ describe("components/list#", function () {
           items: {
             type: "list",
             source: "source",
-            modelViewClass: mojoViews.Container
+            modelViewClass: mojoViews.Base
           }
         }
       });
@@ -40,7 +40,7 @@ describe("components/list#", function () {
   });
 
   it("throws an error if the source doesn't contain bindable objects", function () {
-      var view = new mojoViews.Container({
+      var view = new mojoViews.Base({
         paper: paperclip.compile(
           "{{ html: sections.items }}"
         )
@@ -49,7 +49,7 @@ describe("components/list#", function () {
           items: {
             type: "list",
             source: [{}],
-            modelViewClass: mojoViews.Container
+            modelViewClass: mojoViews.Base
           }
         }
       });
@@ -67,7 +67,7 @@ describe("components/list#", function () {
       source: new bindable.Collection([{ _id: "craig", priority: 0 }, { _id: "john", priority: 1 }].map(function (obj) {
         return new bindable.Object(obj);
       })),
-      modelViewClass: mojoViews.Container.extend({
+      modelViewClass: mojoViews.Base.extend({
         paper: paperclip.compile("hello {{ model._id }} ")
       }),
       sort: function (a, b) {
@@ -80,7 +80,7 @@ describe("components/list#", function () {
 
   it("can create a list", function () {
 
-    var view = new mojoViews.Container({}, app).decorate({
+    var view = new mojoViews.Base({}, app).decorate({
       sections: {
         items: {
           type: "list",
@@ -96,14 +96,14 @@ describe("components/list#", function () {
 
   it("can bind to a bindable.Collection obj", function () {
 
-    var src, view = new mojoViews.Container({}, app).decorate({
+    var src, view = new mojoViews.Base({}, app).decorate({
       sections: {
         items: {
           type: "list",
           source: src = new bindable.Collection([{ _id: "craig" }, { _id: "john" }].map(function(obj) {
             return new bindable.Object(obj);
           })),
-          modelViewClass: mojoViews.Container
+          modelViewClass: mojoViews.Base
         }
       }
     }), v1, v2;
@@ -132,7 +132,7 @@ describe("components/list#", function () {
       })),
       modelViewFactory: function (options) {
         options.paper = paperclip.compile("hello {{model._id}} ");
-        return new mojoViews.Container(options);
+        return new mojoViews.Base(options);
       }
     }, app);
 
@@ -142,7 +142,7 @@ describe("components/list#", function () {
 
   it("adds / removes items as the source changes", function () {
     var src,
-    view = new mojoViews.Container({
+    view = new mojoViews.Base({
       paper: paperclip.compile(
         "{{ html: sections.items }}"
       )
@@ -155,7 +155,7 @@ describe("components/list#", function () {
           })),
           modelViewFactory: function (options) {
             options.paper = paperclip.compile("hello {{model._id}}")
-            return new mojoViews.Container(options);
+            return new mojoViews.Base(options);
           }
         }
       }
@@ -172,7 +172,7 @@ describe("components/list#", function () {
 
   it("can sort a list", function () {
 
-    var view =  new mojoViews.Container({
+    var view =  new mojoViews.Base({
       paper: paperclip.compile(
         "{{ html: sections.items }}"
       )
@@ -183,7 +183,7 @@ describe("components/list#", function () {
           source: new bindable.Collection([{ _id: "craig", priority: 0 }, { _id: "john", priority: 1 }].map(function (obj) {
             return new bindable.Object(obj);
           })),
-          modelViewClass: mojoViews.Container.extend({
+          modelViewClass: mojoViews.Base.extend({
             paper: paperclip.compile("hello {{ model._id }} ")
           }),
           sort: function (a, b) {
@@ -207,7 +207,7 @@ describe("components/list#", function () {
 
   it("can filter a list", function () {
 
-    var view = new mojoViews.Container({
+    var view = new mojoViews.Base({
       paper: paperclip.compile(
         "{{ html: sections.items }}"
       )
@@ -218,7 +218,7 @@ describe("components/list#", function () {
           source: new bindable.Collection([{ _id: "craig", priority: 1 }, { _id: "john", priority: 2 }, { _id: "frank", priority: 3 }].map(function (obj) {
             return new bindable.Object(obj);
           })),
-          modelViewClass: mojoViews.Container.extend({
+          modelViewClass: mojoViews.Base.extend({
             paper: paperclip.compile("hello {{ model._id }} ")
           }),
           filter: function (a) {
@@ -238,7 +238,7 @@ describe("components/list#", function () {
       return new bindable.Object(obj);
     }));
 
-    var view = new mojoViews.Container({
+    var view = new mojoViews.Base({
       paper: paperclip.compile(
         "{{ html: sections.items }}"
       )
@@ -247,7 +247,7 @@ describe("components/list#", function () {
         items: {
           type: "list",
           source: src,
-          modelViewClass: mojoViews.Container.extend({
+          modelViewClass: mojoViews.Base.extend({
             paper: paperclip.compile("hello {{ model._id }} ")
           }),
           filter: function (a) {
@@ -268,7 +268,7 @@ describe("components/list#", function () {
 
   it("can use a vanilla array as the source of a list", function () {
     // TODO
-    var view = new mojoViews.Container({
+    var view = new mojoViews.Base({
       paper: paperclip.compile(
         "{{ html: sections.items }}"
       )
@@ -279,7 +279,7 @@ describe("components/list#", function () {
           source: [{ _id: "craig", priority: 1 }, { _id: "john", priority: 2 }, { _id: "frank", priority: 3 }].map(function (obj) {
             return new bindable.Object(obj);
           }),
-          modelViewClass: mojoViews.Container.extend({
+          modelViewClass: mojoViews.Base.extend({
             paper: paperclip.compile("hello {{ model._id }}")
           })
         }
@@ -292,7 +292,7 @@ describe("components/list#", function () {
 
   it("can dynamically change the source", function () {
 
-    var view = new mojoViews.Container({
+    var view = new mojoViews.Base({
       paper: paperclip.compile(
         "{{ html: sections.items }}!"
       )
@@ -300,7 +300,7 @@ describe("components/list#", function () {
       sections: {
         items: {
           type: "list",
-          modelViewClass: mojoViews.Container.extend({
+          modelViewClass: mojoViews.Base.extend({
             paper: paperclip.compile("hello {{ model._id }}")
           })
         }
@@ -323,7 +323,7 @@ describe("components/list#", function () {
 
 
   it("can re-render a list", function () {
-    var view = new mojoViews.Container({
+    var view = new mojoViews.Base({
       paper: paperclip.compile(
         "{{ html: sections.items }}"
       )
@@ -344,7 +344,7 @@ describe("components/list#", function () {
 
   if(false)
   xit("can re-use a list after it's been removed", function () {
-    var view = new mojoViews.Container({
+    var view = new mojoViews.Base({
       paper: paperclip.compile(
         "v - {{ html: sections.items }}"
       )
@@ -355,7 +355,7 @@ describe("components/list#", function () {
           source: [{ _id: "craig"}, { _id: "john"} ].map(function(v) {
             return new bindable.Object(v);
           }),
-          modelViewClass: mojoViews.Container.extend({
+          modelViewClass: mojoViews.Base.extend({
             paper: paperclip.compile("hello {{ model._id }} ")
           })
         }
@@ -374,7 +374,7 @@ describe("components/list#", function () {
 
 
   it("can map data", function () {
-    var view = new mojoViews.Container({
+    var view = new mojoViews.Base({
       paper: paperclip.compile(
         "{{ html: sections.items }}"
       )
@@ -383,7 +383,7 @@ describe("components/list#", function () {
         items: {
           type: "list",
           source: [{ _id: "craig"}, { _id: "john"} ],
-          modelViewClass: mojoViews.Container.extend({
+          modelViewClass: mojoViews.Base.extend({
             paper: paperclip.compile("hello {{ model.name }} ")
           }),
           map: function (item) {
@@ -400,7 +400,7 @@ describe("components/list#", function () {
   });
 
   it("can bind to a source string", function () {
-    var view = new mojoViews.Container({
+    var view = new mojoViews.Base({
       src: [{ _id: "craig"}, { _id: "john"} ].map(function(v) {
         return new bindable.Object(v);
       }),
@@ -412,7 +412,7 @@ describe("components/list#", function () {
         items: {
           type: "list",
           source: "src",
-          modelViewClass: mojoViews.Container.extend({
+          modelViewClass: mojoViews.Base.extend({
             paper: paperclip.compile("hello {{ model._id }}")
           })
         }
@@ -423,7 +423,7 @@ describe("components/list#", function () {
   });
 
 
-  it("can dispose a list", function () {var view = new mojoViews.Container({
+  it("can dispose a list", function () {var view = new mojoViews.Base({
       src: [{ _id: "craig"}, { _id: "john"} ].map(function(v) {
         return new bindable.Object(v)
       }),
@@ -435,7 +435,7 @@ describe("components/list#", function () {
         items: {
           type: "list",
           source: "src",
-          modelViewClass: mojoViews.Container.extend({
+          modelViewClass: mojoViews.Base.extend({
             paper: paperclip.compile("hello {{ model._id }} ")
           })
         }

@@ -156,7 +156,7 @@ describe("stack#", function () {
 
   it("can create a stack view from a sections property", function () {
 
-    var PagesView = views.Container.extend({
+    var PagesView = views.Base.extend({
       didRender: function () {
         this.section.append(this.get("sections.pages").render());
       },

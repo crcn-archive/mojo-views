@@ -6,7 +6,7 @@ mojoViews       = require("../..");
 describe("core/inherit#", function () {
 
   var app = mojoViews.mainApplication;
-  app.views.register("basic", mojoViews.Container);
+  app.views.register("basic", mojoViews.Base);
 
   /**
    */
@@ -15,7 +15,7 @@ describe("core/inherit#", function () {
     var p = app.views.create("basic", { message: "hello!" }),
     c     = app.views.create("basic");
 
-    p.setChild("child", c);
+    c.set("parent", p);
     expect(c.message).to.be(undefined);
     expect(c.get("message")).to.be("hello!"); // trigget
     expect(c.message).to.be("hello!");
@@ -29,7 +29,7 @@ describe("core/inherit#", function () {
     var p = app.views.create("basic", { message: "hello!" }),
     c     = app.views.create("basic");
 
-    p.setChild("child", c);
+    c.set("parent", p);
     expect(c.get("message")).to.be("hello!");
     p.set("message", "blah!");
     expect(c.get("message")).to.be("blah!");
@@ -42,7 +42,7 @@ describe("core/inherit#", function () {
     var p = app.views.create("basic", { message: "hello!" }),
     c     = app.views.create("basic");
 
-    p.setChild("child", c);
+    c.set("parent", p);
     expect(c.get("message")).to.be("hello!");
     c.set("message", "nah!");
     p.set("message", "blah!");
@@ -55,7 +55,7 @@ describe("core/inherit#", function () {
   it("can inherit an object", function () {
     var p = app.views.create("basic", { city: { zip: 99999 } }),
     c     = app.views.create("basic");
-    p.setChild("child", c);
+    c.set("parent", p);
     expect(c.get("city.zip")).to.be(99999);
   })
 
@@ -65,7 +65,7 @@ describe("core/inherit#", function () {
   it("inherits a property by calling set", function () {
     var p = app.views.create("basic", { city: { zip: 99999 } }),
     c     = app.views.create("basic");
-    p.setChild("child", c);
+    c.set("parent", p);
     c.set("city.name", "San Francisco");
     expect(c.get("city.zip")).to.be(99999);
     expect(c.get("city.name")).to.be("San Francisco");
@@ -79,7 +79,8 @@ describe("core/inherit#", function () {
 
     var p = app.views.create("basic", { message: "hello!" }),
     c     = app.views.create("basic");
-    p.setChild("child", c);
+
+    c.set("parent", p);
 
     // _inherit() on set() - this gets triggered
     c.bind("message", function (v) {
@@ -99,7 +100,7 @@ describe("core/inherit#", function () {
 
     c._define("message");
 
-    p.setChild("child", c);
+    c.set("parent", p);
 
     expect(c.get("message")).to.be(undefined);
   });
@@ -112,10 +113,10 @@ describe("core/inherit#", function () {
     p2    = app.views.create("basic", { message: "yellow!" }),
     c     = app.views.create("basic");
 
-    p.setChild("child", c);
+    c.set("parent", p);
     expect(c.get("message")).to.be("hello!");
 
-    p2.setChild("child", c);
+    c.set("parent", p2);
 
     // should be automatic
     expect(c.message).to.be("yellow!");
@@ -141,7 +142,7 @@ describe("core/inherit#", function () {
     }),
     c      = app.views.create("basic", { name: "hah" });
 
-    p.setChild("child", c);
+    c.set("parent", p);
 
     c.get("testFn").call(c);
     c.get("testFn")();
@@ -152,7 +153,7 @@ describe("core/inherit#", function () {
    */
 
   it("sub classes inherit defined props", function () {
-    var ParentView = mojoViews.Container.extend({
+    var ParentView = mojoViews.Base.extend({
       define: ["abba"]
     }),
     SubView = ParentView.extend({

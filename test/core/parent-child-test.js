@@ -8,8 +8,8 @@ describe("parent/child#", function () {
 
   var app = mojoViews.mainApplication,
   app2 = mojoViews.mainApplication;
-  app.views.register("basic", mojoViews.Container);
-  app2.views.register("basic", mojoViews.Container);
+  app.views.register("basic", mojoViews.Base);
+  app2.views.register("basic", mojoViews.Base);
 
   /**
    */
@@ -19,10 +19,13 @@ describe("parent/child#", function () {
     child = app.views.create("basic"),
 
     // outside of application
-    child2 = new mojoViews.Container();
+    child2 = new mojoViews.Base();
 
-    parent.setChild("someChild", child);
-    parent.setChild("someChild2", child2);
+    child.name = "someChild";
+    child2.name = "someChild2";
+
+    child.set("parent", parent);
+    child2.set("parent", parent);
 
     expect(parent.get("sections.someChild")).to.be(child);
     expect(parent.get("sections.someChild2")).to.be(child2);
@@ -47,8 +50,9 @@ describe("parent/child#", function () {
     subChild    = app2.views.create("basic"),
     subSubChild = app2.views.create("basic");
 
-    child.setChild("someChild", subChild);
-    subChild.setChild("subChild", subSubChild);
+
+    subChild.set("parent", child);
+    subSubChild.set("parent", subChild);
 
     expect(child.application).to.be(app2);
     // expect(child.models).to.be(app2.models);
@@ -57,7 +61,7 @@ describe("parent/child#", function () {
     expect(subSubChild.application).to.be(app2);
     // expect(subSubChild.models).to.be(app2.models);
 
-    parent.setChild("someChild", child);
+    child.set("someChild", parent);
 
     expect(child.application).to.be(app);
     // expect(child.models).to.be(app.models);
@@ -78,8 +82,8 @@ describe("parent/child#", function () {
     bubbled;
 
 
-    child.setChild("child", subChild);
-    parent.setChild("child", child);
+    subChild.set("parent", child);
+    child.set("parent", parent);
 
     parent.once("bubble", function (arg) {
       bubbled = arg;
@@ -95,8 +99,8 @@ describe("parent/child#", function () {
   it("has the correct path", function () {
     var parent = app.views.create("basic"),
     child      = app.views.create("basic");
-    parent.setChild("child", child);
-    expect(child.path()).to.be("ContainerView.ContainerView");
+    child.set("parent", parent);
+    expect(child.path()).to.be("BaseView.BaseView");
   });
 
   /**
@@ -107,7 +111,7 @@ describe("parent/child#", function () {
     child      = app.views.create("basic");
 
     child.render();
-    parent.setChild("child", child);
+    child.set("parent", parent);
     parent.render();
 
     parent.remove();
@@ -127,7 +131,7 @@ describe("parent/child#", function () {
     child      = app.views.create("basic");
 
     child.render();
-    parent.setChild("child", child);
+    child.set("parent", parent);
     parent.render();
 
     // still triggers .remove()
@@ -150,8 +154,10 @@ describe("parent/child#", function () {
 
     p1.render(); p2.render(); child.render();
 
-    p1.setChild("child", child);
-    p2.setChild("child", child);
+
+    child.set("parent", p1);
+    child.set("parent", p2);
+
 
     p1.dispose();
     p2.dspo
@@ -170,9 +176,9 @@ describe("parent/child#", function () {
 
   /*it("can re-use a view after it's been disposed, and maintains children", function () {
 
-    var p = new mojoViews.Container({
+    var p = new mojoViews.Base({
       sections: {
-        child: mojoViews.Container
+        child: mojoViews.Base
       }
     }, app), c, cs, c2, cs2;
 

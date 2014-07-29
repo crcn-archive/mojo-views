@@ -106,7 +106,7 @@ describe("parent/child#", function () {
   /**
    */
 
-  it("removes the child if the parent is removed", function (next) {
+  it("hides the child if the parent is removed", function (next) {
     var parent = app.views.create("basic"),
     child      = app.views.create("basic");
 
@@ -118,7 +118,8 @@ describe("parent/child#", function () {
 
 
     setTimeout(function () {
-      expect(child._rendered).to.be(false);
+      expect(child.visible).to.be(false);
+      expect(child._rendered).to.be(true);
       next()
     }, 10)
   });

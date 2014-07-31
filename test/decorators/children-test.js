@@ -130,11 +130,4 @@ describe("decorators/children#", function () {
 
     expect(error.message).to.contain("is invalid for view");
   });
-
-
-
-
-
-
-
 });

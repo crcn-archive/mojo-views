@@ -10,7 +10,7 @@ test-watch:
 
 test-cov:
 	./node_modules/.bin/istanbul cover \
-	./node_modules/.bin/_mocha ./test/**/*-test.js --ignore-leaks --timeout 1000
+	./node_modules/.bin/_mocha $(ALL_TESTS) --ignore-leaks --timeout 1000
 
 browser:
 	mkdir -p build

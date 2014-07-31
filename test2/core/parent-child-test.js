@@ -170,28 +170,5 @@ describe("parent/child#", function () {
       next()
     }, 10)
   });
-
-  /**
-   * BUSTS
-   */
-
-  /*it("can re-use a view after it's been disposed, and maintains children", function () {
-
-    var p = new mojoViews.Base({
-      sections: {
-        child: mojoViews.Base
-      }
-    }, app), c, cs, c2, cs2;
-
-    p.__decorators = undefined;
-    p.render();
-    cs = (c = p.get("sections.child")).render();
-    p.dispose();
-    p.render();
-    cs2 = (c2 = p.get("sections.child")).render();
-
-    expect(c2).not.to.be(c);
-    expect(cs2).not.to.be(c2);
-  });*/
-
+  
 });

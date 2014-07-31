@@ -1,6 +1,6 @@
 {
   "name": "mojo-views",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "modular mv+ JavaScript framework for node, and the web",
   "main": "./lib/index.js",
   "jam": {
@@ -61,6 +61,7 @@
     "benchmark": "~1.0.0",
     "browserify": "~3.24.2",
     "yuidocjs": "^0.3.50",
-    "mojo-paperclip": "0.4.x"
+    "mojo-paperclip": "0.4.x",
+    "sinon": "^1.10.3"
   }
 }

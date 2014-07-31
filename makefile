@@ -1,11 +1,12 @@
+ALL_TESTS = $(shell find ./test -name "*-test.js")
 all: browser
 ONLY="."
 
 test-node:
-	./node_modules/.bin/_mocha --recursive --ignore-leaks --timeout 1000 -g $(ONLY) -b
+	./node_modules/.bin/_mocha $(ALL_TESTS) --ignore-leaks --timeout 1000 -g $(ONLY) -b
 
 test-watch:
-	./node_modules/.bin/_mocha --recursive --ignore-leaks --timeout 1000 -g $(ONLY) -b --watch lib test
+	./node_modules/.bin/_mocha $(ALL_TESTS) --ignore-leaks --timeout 1000 -g $(ONLY) -b --watch lib test
 
 test-cov:
 	./node_modules/.bin/istanbul cover \

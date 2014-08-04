@@ -4,14 +4,18 @@ bindable  = require("bindable");
 
 describe("list/basic#", function () {
 
-  var source = new bindable.Collection([
-    new bindable.Object({ name: "a" }),
-    new bindable.Object({ name: "b" })
-  ]);
+  var source;
+
+  beforeEach(function() {
+    source = new bindable.Collection([
+      new bindable.Object({ name: "a" }),
+      new bindable.Object({ name: "b" })
+    ]);
+  });
 
   var ItemView = views.Base.extend({
-    willRender: function () {
-      this.section.append(this.application.nodeFactory.createTextNode("name: " + this.model.get("name") + ","));
+    didCreateSection: function () {
+      this.section.append(this.application.nodeFactory.createTextNode(this.model.get("name") + ","));
     }
   });
 
@@ -26,8 +30,9 @@ describe("list/basic#", function () {
       modelViewClass: ItemView
     });
 
-    expect(list.render().toString()).to.be("name: a,name: b,");
+    expect(list.render().toString()).to.be("a,b,");
   });
+
 
   it("render a list of children using modelViewFactory", function () {
 
@@ -39,6 +44,74 @@ describe("list/basic#", function () {
       }
     });
 
-    expect(list.render().toString()).to.be("name: a,name: b,");
+    expect(list.render().toString()).to.be("a,b,");
+  });
+
+
+  it("can dynamically render new items added to a list", function () {
+
+    var list = new views.List({
+      source: source,
+      modelViewClass: ItemView
+    });
+
+    expect(list.render().toString()).to.be("a,b,");
+    source.push(new bindable.Object({ name: "c" }));
+    expect(list.render().toString()).to.be("a,b,c,");
+  });
+
+  it("can dynamically remove items from a list", function () {
+
+    var list = new views.List({
+      source: source,
+      modelViewClass: ItemView
+    });
+
+    expect(list.render().toString()).to.be("a,b,");
+    source.splice(1, 1);
+    expect(list.render().toString()).to.be("a,");
+  });
+
+  it("can dynamically change a source", function () {
+
+    var list = new views.List({
+      source: source,
+      modelViewClass: ItemView
+    });
+
+    expect(list.render().toString()).to.be("a,b,");
+    list.set("source", new bindable.Collection([
+      new bindable.Object({ name: "c" }),
+      new bindable.Object({ name: "d" })
+    ]));
+    expect(list.render().toString()).to.be("c,d,");
+  });
+
+  it("can re-render a list", function () {
+    var list = new views.List({
+      source: source,
+      modelViewClass: ItemView
+    });
+
+    expect(list.render().toString()).to.be("a,b,");
+    list.remove();
+    expect(list.render().toString()).to.be("a,b,");
+  });
+
+  it("can bind to a source property", function () {
+    var list = new views.List({
+      src: source,
+      source: "src",
+      modelViewClass: ItemView
+    });
+
+    expect(list.render().toString()).to.be("a,b,");
+
+    list.set("src", new bindable.Collection([
+      new bindable.Object({ name: "c" }),
+      new bindable.Object({ name: "d" })
+    ]));
+
+    expect(list.render().toString()).to.be("c,d,");
   });
 });

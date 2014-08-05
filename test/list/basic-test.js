@@ -80,7 +80,7 @@ describe("list/basic#", function () {
       source: source,
       modelViewClass: ItemView
     });
-    
+
     list.render();
 
     var item = source.at(0);
@@ -106,6 +106,30 @@ describe("list/basic#", function () {
       new bindable.Object({ name: "d" })
     ]));
     expect(list.render().toString()).to.be("c,d,");
+  });
+
+  it("removes all listeners on a source when it's been replaced", function () {
+
+    var oldSource;
+    var list = new views.List({
+      source: oldSource = source,
+      modelViewClass: ItemView
+    });
+    list.render();
+
+    expect(list.render().toString()).to.be("a,b,");
+    list.set("source", new bindable.Collection([
+      new bindable.Object({ name: "c" }),
+      new bindable.Object({ name: "d" })
+    ]));
+    expect(list.render().toString()).to.be("c,d,");
+
+    var spy = sinon.spy(list, "_onFilterChange"),
+    spy2    = sinon.spy(list, "_onSourceUpdate");
+
+    oldSource.splice(1,1);
+    expect(spy2.callCount).to.be(0);
+    expect(spy.callCount).to.be(0);
   });
 
   it("can re-render a list", function () {

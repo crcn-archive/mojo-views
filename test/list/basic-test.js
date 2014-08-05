@@ -1,6 +1,7 @@
 var views = require("../.."),
 expect    = require("expect.js"),
-bindable  = require("bindable");
+bindable  = require("bindable"),
+sinon     = require("sinon");
 
 describe("list/basic#", function () {
 
@@ -72,6 +73,26 @@ describe("list/basic#", function () {
     expect(list.render().toString()).to.be("a,");
   });
 
+
+  it("stops listening to a model if it's removed", function () {
+
+    var list = new views.List({
+      source: source,
+      modelViewClass: ItemView
+    });
+    
+    list.render();
+
+    var item = source.at(0);
+    source.splice(0, 1);
+
+    var spy = sinon.spy(list, "_onFilterChange");
+
+    item.set("name", "d");
+    expect(spy.callCount).to.be(0);
+
+  });
+
   it("can dynamically change a source", function () {
 
     var list = new views.List({
@@ -114,4 +135,5 @@ describe("list/basic#", function () {
 
     expect(list.render().toString()).to.be("c,d,");
   });
+
 });

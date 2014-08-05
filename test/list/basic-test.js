@@ -160,4 +160,15 @@ describe("list/basic#", function () {
     expect(list.render().toString()).to.be("c,d,");
   });
 
+  it("can set the source to undefined", function () {
+    var list = new views.List({
+      src: source,
+      source: "src",
+      modelViewClass: ItemView
+    });
+    expect(list.render().toString()).to.be("a,b,");
+    list.set("source", void 0);
+    expect(list.render().toString()).to.be("");
+  })
+
 });

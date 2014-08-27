@@ -89,4 +89,45 @@ describe("list/sort#", function () {
   });
 
   it("resorts a list when the sort function changes", function () { });
+
+  it("can toggle sources", function () {
+
+    var GroupView = views.Base.extend({
+      didCreateSection: function () {
+        this.section.append(this.application.nodeFactory.createTextNode(this.model.get("g") + ","));
+      }
+    });
+
+    var sa = new bindable.Collection([
+      new bindable.Object({ g: "a" }),
+      new bindable.Object({ g: "a" }),
+      new bindable.Object({ g: "a" }),
+      new bindable.Object({ g: "a" })
+    ]);
+
+    var sb = new bindable.Collection([
+      new bindable.Object({ g: "b" }),
+      new bindable.Object({ g: "b" }),
+    ]);
+
+    var list = new views.List({
+      source: sa,
+      modelViewClass: GroupView,
+      sort: function (a, b) {
+        return -1;
+      },
+      filter: function (a) {
+        return true;
+      }
+    });
+
+    expect(list.render().toString()).to.be("a,a,a,a,");
+    list.set("source", sb);
+    expect(list.section.toString()).to.be("b,b,");
+    list.remove();
+    list.set("visible", false);
+    list.set("source", sa);
+    expect(list.section.toString()).to.be("a,a,a,a,");
+
+  });
 });

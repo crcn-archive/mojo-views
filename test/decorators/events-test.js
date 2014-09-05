@@ -3,7 +3,8 @@ expect    = require("expect.js");
 
 var jsdom  = require("jsdom"),
 nofactor   = require("nofactor"),
-fs         = require("fs");
+fs         = require("fs"),
+Application = require("mojo-application");
 
 
 
@@ -25,7 +26,8 @@ describe("decorators/events#", function () {
 
       next();
 
-      app = views.application({ nodeFactory: nofactor.dom });
+      app = new Application({ nodeFactory: nofactor.dom });
+      app.use(views);
     });
   });
 

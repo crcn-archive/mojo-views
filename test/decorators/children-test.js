@@ -1,5 +1,6 @@
 var expect = require("expect.js"),
-views      = require("../..");
+views      = require("../.."),
+Application = require("mojo-application");
 
 
 describe("decorators/children#", function () {
@@ -35,7 +36,8 @@ describe("decorators/children#", function () {
 
   it("can define a section when the type is a registered component", function () {
 
-    var a = views.application();
+    var a = new Application();
+    a.use(views);
     a.views.register("basic", views.Base);
 
     var v = new views.Base(null, a).decorate({

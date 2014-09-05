@@ -1,5 +1,6 @@
 var views = require("../../.."),
-expect    = require("expect.js");
+expect    = require("expect.js"),
+Application = require("mojo-application");
 
 describe("base/parent-child/basic#", function () {
 
@@ -55,8 +56,9 @@ describe("base/parent-child/basic#", function () {
   });
 
   it("properly inherits the application", function () {
-    var a1 = views.application(),
-    a2     = views.application();
+
+    var a1 = new Application(),
+    a2     = new Application();
 
     var p1 = new views.Base({ application: a1 }),
     p2     = new views.Base({ application: a2 }),

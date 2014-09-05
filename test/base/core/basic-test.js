@@ -1,5 +1,6 @@
 var views = require("../../.."),
-expect    = require("expect.js");
+expect    = require("expect.js"),
+Application = require("mojo-application");
 
 describe("base/core/basic#", function () {
 
@@ -20,7 +21,7 @@ describe("base/core/basic#", function () {
 
   it("can create a new view with a specific application", function () {
     var app,
-    view = new views.Base(null, app = views.application());
+    view = new views.Base(null, app = Application.main);
     expect(view.application).to.be(app);
   });
 

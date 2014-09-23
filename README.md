@@ -163,10 +163,32 @@ The source of the list. This should be a [bindable.Collection](https://github.co
 The view class that's created for each `model` in `source`. Note
 that the property `model` is set to each listed view, as shown in the example above.
 
-#### list.sort
+#### list.sort(modelA, modelB)
 
 The sorting function for the list
 
+```javascript
+var bindable = require("bindable");
+
+var people = new bindable.Collection([
+  new bindable.Object({ name: "John", age: 29 }),
+  new bindable.Object({ name: "Jeff", age: 21  }),
+  new bindable.Object({ name: "Ben", age: 23  })
+]);
+
+var PeopleView = new views.List.extend({
+  modelViewClass: PersionView, // not defined in this example
+  sort: function (a, b) {
+    return a.get("age") > b.get("age") ? -1 : 1;
+  }
+});
+
+document.body.append(new PeopleView({ source: people }).render());
+```
+
+### list.filter(model)
+
+Filters models from the list
 
 ## Default Plugins
 

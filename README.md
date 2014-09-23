@@ -48,7 +48,7 @@ Called right after the view is rendered
 
 #### base.section
 
-The section, or virtual document fragment which contains all the elements. See [https://github.com/mojo-js/loaf.js] for further documentation.
+The section, or virtual document fragment which contains all the elements. See [https://github.com/mojo-js/loaf.js](loaf.js) for further documentation.
 
 #### base.remove()
 

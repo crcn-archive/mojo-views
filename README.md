@@ -13,9 +13,9 @@ npm i mojo-views
 - [bindable.js](https://github.com/classdojo/bindable.js) - the base class for each view
 - [mojo-paperclip](/mojo-js/mojo-paperclip) - template engine
 
-### API
+## API
 
-#### views.Base(properties, application)
+### views.Base(properties, application)
 
 The base view that controls what the user sees and does
 
@@ -70,7 +70,7 @@ true / false if the view is currently visible to the user
 
 reference to the parent view
 
-#### views.Stack
+### views.Stack
 
 Contains a stack of views, where only one is displayed at a time. This class is useful
 when displaying different pages.
@@ -120,12 +120,12 @@ pages.set("states", {
 });
 ```
 
-#### views.List
+### views.List
 
 Contains a list of views
 
 
-### Default Plugins
+## Default Plugins
 
 Below are a list of plugins for mojo views that extend their functionality
 

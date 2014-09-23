@@ -157,6 +157,7 @@ document.body.appendChild(items.render());
 #### list.source
 
 The source of the list. This should be a [bindable.Collection](https://github.com/classdojo/bindable.js).
+Note that this can also be a reference to another property in the list. This is especially useful when inheriting properties from a parent view. See [property scope](#property-scope) for more info.
 
 #### list.modelViewClass
 
@@ -203,3 +204,45 @@ Children allow you to define child view controller which get added to the view c
 Bindings allow you to compute properties on each view
 
 ### Property Scope
+
+Views, just like variable scope, have the ability to inherit properties from their parent view. For example:
+
+```javascript
+
+var TodoView = views.List.extend({
+  willRender: function () {
+    this.section.append(this.nodeFactory.createTextNode(this.get("model.text")));
+  }
+});
+
+var TodosListView = views.List.extend({
+  modelViewClass: TodoView,
+  source: "todoItems"
+});
+
+var MainView = views.Base.extend({
+  children: {
+    todosList: TodosListView
+  },
+  willRender: function () {
+    this.section.append(this.nodeFactory.createTextNode("Todos: "));
+    this.section.append(this.get("children.todosList").render());
+  }
+});
+
+var todos = new bindable.Collection([
+  new bindable.Object({ text: "clean car" }),
+  new bindable.Object({ text: "walk dog" })
+]);
+
+
+
+/*
+will output:
+
+
+Todos: clean car walk dog
+*/
+
+document.body.appendChild(new MainView({ todoItems: todos }).render());
+```

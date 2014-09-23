@@ -75,6 +75,8 @@ reference to the parent view
 
 ### views.Stack(properties, application)
 
+Inherits [views.Base](#views.Base)
+
 Contains a stack of views, where only one is displayed at a time. This class is useful
 when displaying different pages.
 

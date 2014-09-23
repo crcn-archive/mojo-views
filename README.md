@@ -10,12 +10,15 @@ npm i mojo-views
 
 ### See also
 
-- [bindable.js](https://github.com/classdojo/bindable.js) - the base class for each view
+- [bindable.js](https://github.com/classdojo/bindable.js) - base class for each view
 - [mojo-paperclip](/mojo-js/mojo-paperclip) - template engine
+- [mojo-router](/mojo-js/mojo-pa)
 
 ## API
 
 ### views.Base(properties, application)
+
+Inherits [bindable.Object](https://github.com/classdojo/bindable.js)
 
 The base view that controls what the user sees and does
 

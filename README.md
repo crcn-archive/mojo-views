@@ -124,6 +124,43 @@ pages.set("states", {
 
 Contains a list of views
 
+```javascript
+var bindable = require("bindable");
+
+var items = new bindable.Collection([
+  new bindable.Object({ text: "hello 1" }),
+  new bindable.Object({ text: "hello 2" }),
+  new bindable.Object({ text: "hello 3" })
+]);
+
+var ItemView = views.Base.extend({
+  willRender: function () {
+    this.section.append(this.nodeFactory.createTextNode(this.get("model.text")));
+  }
+});
+
+var ItemsView = new views.List.extend({
+  modelViewClass: ItemView
+});
+
+var items = new ItemsView({ source: items });
+document.body.appendChild(items.render());
+
+```
+
+#### list.source
+
+The source of the list
+
+#### list.modelViewClass
+
+The model view class that's created for each `model` in `source`. Note
+that the property `model` is set to each created view, as shown in the example above.
+
+#### list.sort
+
+The sorting function for the list
+
 
 ## Default Plugins
 

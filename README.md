@@ -70,7 +70,7 @@ true / false if the view is currently visible to the user
 
 reference to the parent view
 
-### views.Stack
+### views.Stack(properties, application)
 
 Contains a stack of views, where only one is displayed at a time. This class is useful
 when displaying different pages.
@@ -120,7 +120,7 @@ pages.set("states", {
 });
 ```
 
-### views.List
+### views.List(properties, application)
 
 Contains a list of views
 

@@ -145,7 +145,6 @@ var ItemsView = new views.List.extend({
 
 var items = new ItemsView({ source: items });
 document.body.appendChild(items.render());
-
 ```
 
 #### list.source

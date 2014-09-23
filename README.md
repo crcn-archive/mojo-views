@@ -75,7 +75,7 @@ reference to the parent view
 
 ### views.Stack(properties, application)
 
-Inherits [views.Base](#views.Base)
+Inherits [views.Base](#viewsbaseproperties-application)
 
 Contains a stack of views, where only one is displayed at a time. This class is useful
 when displaying different pages.
@@ -127,7 +127,9 @@ pages.set("states", {
 
 ### views.List(properties, application)
 
-Contains a list of views
+Inherits [views.Base](#viewsbaseproperties-application)
+
+Contains a list of views.
 
 ```javascript
 var bindable = require("bindable");
@@ -154,7 +156,7 @@ document.body.appendChild(items.render());
 
 #### list.source
 
-The source of the list
+The source of the list. This should be a [bindable.Collection](https://github.com/classdojo/bindable.js).
 
 #### list.modelViewClass
 

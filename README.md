@@ -19,16 +19,19 @@ npm i mojo-views
 
 The base view that controls what the user sees and does
 
+- `properties` - the properties that get set on the view controller
+- `application` - (optional) the mojo application
+
 ```javascript
 var views = require("mojo-views");
 var HelloView = views.Base.extend({
     willRender: function () {
-      this.section.append(this.nodeFactory.createTextNode("Hello World"));
+      this.section.append(this.nodeFactory.createTextNode("Hello " + this.get("name")));
     }
 });
 
-var helloView = new HelloView();
-document.body.appendChild(helloView.render());
+var helloView = new HelloView({ name: "Jeff" });
+document.body.appendChild(helloView.render()); // Hello Jeff
 ```
 
 #### DocumentFragment view.render()
@@ -72,6 +75,51 @@ reference to the parent view
 Contains a stack of views, where only one is displayed at a time. This class is useful
 when displaying different pages.
 
+```javascript
+var Pages = views.Stack.extend({
+  children: {
+    home: require("./home"),
+    account: require("./account")
+  }
+});
+
+var pages = new Pages();
+pages.set("state", "home"); // move to the home page
+```
+
+#### stack.state
+
+the current state of the stack view
+
+#### stack.states
+
+Allows you to control the state of multiple nested stack.
+
+```javascript
+
+var AccountPages = views.Stack.extend({
+  children: {
+    billing: require("./billing"),
+    profile: require("./profile")
+  }
+});
+
+var Pages = views.Stack.extend({
+  name: "main",
+  children: {
+    home: require("./home"),
+    account: AccountPages
+  }
+});
+
+var pages = new Pages();
+
+pages.set("states", {
+  main: "account",
+  account: "profile"
+});
+```
+
 #### views.List
 
 Contains a list of views
@@ -81,4 +129,12 @@ Contains a list of views
 
 Below are a list of plugins for mojo views that extend their functionality
 
-#### 
+#### children
+
+Children allow you to define child view controller which get added to the view controller
+
+#### bindings
+
+Bindings allow you to compute properties on each view
+
+### Property Scope

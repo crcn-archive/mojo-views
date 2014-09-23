@@ -216,7 +216,9 @@ var TodoView = views.List.extend({
 });
 
 var TodosListView = views.List.extend({
-  modelViewClass: TodoView,
+  modelViewClass: TodoView, 
+
+  // this is inherited from mainView when set in the constructor
   source: "todoItems"
 });
 
@@ -245,4 +247,32 @@ Todos: clean car walk dog
 */
 
 document.body.appendChild(new MainView({ todoItems: todos }).render());
+```
+
+#### Breaking Scope
+
+You can also be explicit about what properties are inherited from the parent view by setting
+`define` in the view. For example:
+
+```javascript
+
+var ChildView = views.Base.extend({
+  define: ["message"],
+  message: "Hello World!",
+  willRender: function () {
+    this.section.append(this.nodeFactory.createTextNode(this.get("message")));
+  }
+})
+
+var ParentView = views.Base.extend({
+  children: {
+    child: ChildView
+  }
+  willRender: function () {
+    this.section.append(this.get("children.child").render());
+  }
+});
+
+// outputs: "Hello World!" instead of "Blarg!"
+document.body.appendChild(new ParentView({ message: "Blarg!" }).render());
 ```

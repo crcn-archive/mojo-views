@@ -237,8 +237,6 @@ var todos = new bindable.Collection([
   new bindable.Object({ text: "walk dog" })
 ]);
 
-
-
 /*
 will output:
 

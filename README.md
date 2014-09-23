@@ -160,8 +160,8 @@ The source of the list. This should be a [bindable.Collection](https://github.co
 
 #### list.modelViewClass
 
-The model view class that's created for each `model` in `source`. Note
-that the property `model` is set to each created view, as shown in the example above.
+The view class that's created for each `model` in `source`. Note
+that the property `model` is set to each listed view, as shown in the example above.
 
 #### list.sort
 

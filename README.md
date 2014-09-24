@@ -218,6 +218,8 @@ var PersonView = views.Base.extend({
   bindings: {
     "model.firstName, model.lastName": function (firstName, lastName) {
       this.textNode.value = "Hello " + firstName + " " + lastName;
+
+      // or do something like this.set("fullName", firstName + " " + lastName);
     }
   },
   didCreateSection: function () {

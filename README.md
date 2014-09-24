@@ -87,6 +87,12 @@ true / false if the view is currently visible to the user
 
 reference to the parent view
 
+#### events
+
+- `remove` - emitted when the view is removed
+- `render` - emitted when the view is rendered
+- `dispose` - emitted when the view is disposed
+
 ### views.Stack(properties[, application])
 
 Inherits [views.Base](#viewsbaseproperties-application)

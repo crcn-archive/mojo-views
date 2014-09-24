@@ -14,7 +14,12 @@ npm i mojo-views
 - [mojo-paperclip](/mojo-js/mojo-paperclip) - template engine
 - [mojo-router](/mojo-js/mojo-pa)
 
+## Application API
+
+#### views.register()
+
 ## API
+
 
 ### views.Base(properties, application)
 
@@ -28,8 +33,8 @@ The base view that controls what the user sees and does
 ```javascript
 var views = require("mojo-views");
 var HelloView = views.Base.extend({
-    willRender: function () {
-      this.section.append(this.nodeFactory.createTextNode("Hello " + this.get("name")));
+    didCreateSection: function () {
+      this.section.appendChild(this.nodeFactory.createTextNode("Hello " + this.get("name")));
     }
 });
 
@@ -37,7 +42,7 @@ var helloView = new HelloView({ name: "Jeff" });
 document.body.appendChild(helloView.render()); // Hello Jeff
 ```
 
-#### DocumentFragment view.render()
+#### DocumentFragment base.render()
 
 Renders the view, and returns a document fragment
 
@@ -48,6 +53,10 @@ Called right before the view is rendered
 #### base.didRender()
 
 Called right after the view is rendered
+
+#### base.didCreateSection()
+
+Called once the `section` is created. This is usually where you might add elements to your view controller.
 
 #### base.section
 
@@ -141,7 +150,7 @@ var items = new bindable.Collection([
 ]);
 
 var ItemView = views.Base.extend({
-  willRender: function () {
+  didCreateSection: function () {
     this.section.append(this.nodeFactory.createTextNode(this.get("model.text")));
   }
 });
@@ -187,21 +196,69 @@ var PeopleView = new views.List.extend({
 document.body.append(new PeopleView({ source: people }).render());
 ```
 
-### list.filter(model)
+#### list.filter(model)
 
 Filters models from the list
 
-## Default Plugins
-
-Below are a list of plugins for mojo views that extend their functionality
-
-#### children
-
-Children allow you to define child view controller which get added to the view controller
+## Built-in Plugins
 
 #### bindings
 
-Bindings allow you to compute properties on each view
+Bindings allow you to compute properties on each view.
+
+#### children
+
+Children allow you to define child view controller which get added to the view controller. This allows a greater level of
+organization in your codebase. Here's an example of a basic view structure:
+
+```javascript
+
+// this view never actually gets removed - it's always stuck at the top
+var HeaderView = views.Base.extend({
+  didCreateSection: function () {
+    // render elements here
+  }
+});
+
+// the main home page
+var HomeView = views.Stack.extend({
+  didCreateSection: function () {
+    // render home elements here
+  }
+});
+
+var ContactView = views.Stack.extend({
+  didCreateSection: function () {
+    // render elements here
+  }
+});
+
+
+// toggles between home, and contact states
+var PagesView = views.Stack.extend({
+  children: {
+    home: HomeView,
+    contact: ContactView
+  }
+});
+
+// the main entry point into the views
+var MainView = views.Base.extend({
+  didCreateSection: function () {
+    this.section.appendChild(this.children.header.render());
+    this.section.appendChild(this.children.pages.render());
+  },
+  children: {
+    header: HeaderView,
+    pages: PagesView
+  }
+});
+
+var mainView = new MainView();
+document.body.appendChild(mainView.render());
+```
+
+## Custom Plugins
 
 ### Property Scope
 

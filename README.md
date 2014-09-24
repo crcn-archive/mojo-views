@@ -371,10 +371,6 @@ var app = new Application();
 app.use(views);
 ```
 
-```javascript
-application.use(require("mojo-views"));
-```
-
 #### application.views.register(viewNameOrClasses[, class])
 
 Registers a view class that's accessible anywhere in the application. This is especially useful when registering reusable components

@@ -285,10 +285,6 @@ var mainView = new MainView();
 document.body.appendChild(mainView.render());
 ```
 
-## Custom Plugins
-
-TODO 
-
 ## Property Scope
 
 Views, just like variable scope, have the ability to inherit properties from their parent view. For example:
@@ -418,4 +414,57 @@ var view = new SomeView(void 0, app);
 
 
 document.body.appendChild(view.render());
+```
+
+#### application.views.create(viewName, properties)
+
+Creates a new, registered component
+
+- `viewName` - the registered view component name
+- `properties` - the properties to assign to the created view. 
+
+```javascript
+var HelloView = views.Base.extend({
+  
+});
+
+application.views.register("hello", HelloView);
+
+var hello = application.views.create("hello", { name: "Craig" });
+
+console.log(hello.name); // Craig
+```
+
+#### application.views.decorator(decorator)
+
+Registers a view plugin. This is useful if you want to extend the functionality for each view. Super useful for 
+interpolation between different libraries. Here's an example of using a handlebars template engine:
+
+```javascript
+
+var handlebars = require("handlebars");
+
+var HelloView = views.Base.extend({
+  handlebars: "<div> hello {{name}}!</div>"
+});
+
+application.views.register("hello", HelloView);
+
+application.views.decorator({
+  getOptions: function (view) {
+    return view.handlebars;
+  },  
+  decorate: function (view, templateSource) {
+    var template = handlebars.compile(templateSource);
+
+    function render () {
+      view.section.replaceChildNodes(template(view));
+    }
+
+    render();
+
+    // render whenever the view changes
+    view.on("change", render);
+  }
+})
 ```

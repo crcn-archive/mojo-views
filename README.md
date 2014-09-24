@@ -306,7 +306,7 @@ Todos: clean car walk dog
 document.body.appendChild(new MainView({ todoItems: todos }).render());
 ```
 
-#### Breaking Scope
+### Breaking Scope
 
 You can also be explicit about what properties are inherited from the parent view by setting
 `define` in the view. For example:

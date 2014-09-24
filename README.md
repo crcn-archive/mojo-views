@@ -14,10 +14,6 @@ npm i mojo-views
 - [mojo-paperclip](/mojo-js/mojo-paperclip) - template engine
 - [mojo-router](/mojo-js/mojo-pa)
 
-## Application API
-
-#### views.register()
-
 ## API
 
 
@@ -61,6 +57,10 @@ Called once the `section` is created. This is usually where you might add elemen
 #### base.section
 
 The section, or virtual document fragment which contains all the elements. See [loaf.js](https://github.com/mojo-js/loaf.js) for further documentation.
+
+#### base.application
+
+The [application](https://github.com/mojo-js/mojo-application).
 
 #### base.remove()
 
@@ -330,4 +330,64 @@ var ParentView = views.Base.extend({
 
 // outputs: "Hello World!" instead of "Blarg!"
 document.body.appendChild(new ParentView({ message: "Blarg!" }).render());
+```
+
+## Application API
+
+#### views(application)
+
+registers `mojo-views` to the [mojo-application](https://github.com/mojo-js/mojo-application), which will add a few properties
+/ methods onto the application.
+
+```javascript
+var Application = require("mojo-application"),
+views           = require("mojo-views");
+
+var app = new Application();
+app.use(views);
+```
+
+```javascript
+application.use(require("mojo-views"));
+```
+
+#### application.views.register(viewNameOrClasses[, class])
+
+Registers a view class that's accessible anywhere in the application. This is especially useful when registering reusable components
+you might want to use in something like [paperclip-component](https://github.com/mojo-js/paperclip-component).
+
+`viewNameOrClasses` - view name to register, or an object of classses to register
+`class` - the class to register
+
+```javascript
+
+var app = new Application();
+
+// register views one at a time
+app.views.register("main", MainView);
+
+// or register multiple views at a time
+app.views.register({
+  main: MainView,
+  select: SelectView,        // re-usable select component
+  loadingBar: LoadingBarView // re-usable loading bar component
+  datePicker: DatePickerView // re-usable date picker view
+});
+
+
+var SomeView = views.Base.extend({
+  didCreateSection: function () {
+
+    // create the component, and append to this view
+    this.section.appendChild(this.application.views.create("datePicker").render());
+  }
+});
+
+
+// create some view, but use the application that 
+// has all the registered components
+var view = new SomeView(void 0, app);
+
+
+document.body.appendChild(view.render());
 ```

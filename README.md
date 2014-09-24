@@ -29,7 +29,7 @@ Inherits [bindable.Object](https://github.com/classdojo/bindable.js)
 The base view that controls what the user sees and does
 
 - `properties` - the properties that get set on the view controller
-- `application` - (optional) the mojo application
+- `application` - (optional) the mojo application. If this is omitted, then the `global application` will be used.
 
 ```javascript
 var views = require("mojo-views");

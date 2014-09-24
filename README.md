@@ -262,7 +262,7 @@ document.body.appendChild(mainView.render());
 
 TODO 
 
-### Property Scope
+## Property Scope
 
 Views, just like variable scope, have the ability to inherit properties from their parent view. For example:
 

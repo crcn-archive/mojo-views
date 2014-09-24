@@ -260,6 +260,8 @@ document.body.appendChild(mainView.render());
 
 ## Custom Plugins
 
+TODO 
+
 ### Property Scope
 
 Views, just like variable scope, have the ability to inherit properties from their parent view. For example:

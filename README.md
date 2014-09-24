@@ -103,7 +103,7 @@ pages.set("state", "home"); // move to the home page
 
 #### stack.state
 
-the current state of the stack view
+the current state of the stack view. See example above.
 
 #### stack.states
 

@@ -14,10 +14,15 @@ npm i mojo-views
 - [mojo-paperclip](/mojo-js/mojo-paperclip) - template engine
 - [mojo-router](/mojo-js/mojo-pa)
 
+### Features
+
+- Easy interpolation between other libraries such as Backbone, React, Angular, etc. (no lock-in)
+
+
 ## API
 
 
-### views.Base(properties, application)
+### views.Base(properties[, application])
 
 Inherits [bindable.Object](https://github.com/classdojo/bindable.js)
 
@@ -82,7 +87,7 @@ true / false if the view is currently visible to the user
 
 reference to the parent view
 
-### views.Stack(properties, application)
+### views.Stack(properties[, application])
 
 Inherits [views.Base](#viewsbaseproperties-application)
 
@@ -134,7 +139,7 @@ pages.set("states", {
 });
 ```
 
-### views.List(properties, application)
+### views.List(properties[, application])
 
 Inherits [views.Base](#viewsbaseproperties-application)
 
@@ -206,6 +211,25 @@ Filters models from the list
 
 Bindings allow you to compute properties on each view.
 
+```javascript
+var bindable = require("bindable");
+
+var PersonView = views.Base.extend({
+  bindings: {
+    "model.firstName, model.lastName": function (firstName, lastName) {
+      this.textNode.value = "Hello " + firstName + " " + lastName;
+    }
+  },
+  didCreateSection: function () {
+    this.textNode = this.application.nodeFactory.createTextNode("");
+    this.section.appendChild(this.textNode);
+  }
+});
+
+var person = new PersonView();
+document.body.appendChild(person.render());
+```
+
 #### children
 
 Children allow you to define child view controller which get added to the view controller. This allows a greater level of
@@ -267,7 +291,6 @@ TODO
 Views, just like variable scope, have the ability to inherit properties from their parent view. For example:
 
 ```javascript
-
 var TodoView = views.List.extend({
   willRender: function () {
     this.section.append(this.nodeFactory.createTextNode(this.get("model.text")));

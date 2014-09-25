@@ -21,7 +21,7 @@ npm i mojo-views
 ### Examples
 
 - https://github.com/mojo-js/mojo-todomvc-example
-- [Hello World](http://requirebin.com/?gist=9a3660353d6f828bd292)
+- [Hello World](http://requirebin.com/?gist=a4af5f1b896589825799)
 - [Sorted List view](http://requirebin.com/?gist=7ccce61d8a95bf2cb5a5)
 - [Stack View](http://requirebin.com/?gist=7ccce61d8a95bf2cb5a5)
 
@@ -44,11 +44,11 @@ var views = require("mojo-views");
 
 var HelloView = views.Base.extend({
     didCreateSection: function () {
-      this.section.appendChild(this.application.nodeFactory.createTextNode("Hello " + this.get("name")));
+      this.section.appendChild(this.application.nodeFactory.createTextNode("Hello " + this.get("message") + "!"));
     }
 });
 
-var helloView = new HelloView({ name: "Jeff" });
+var helloView = new HelloView({ message: "World" });
 document.body.appendChild(helloView.render());
 ```
 

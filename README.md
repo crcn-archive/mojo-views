@@ -26,6 +26,7 @@ npm i mojo-views
 - [Stack View](http://requirebin.com/?gist=7ccce61d8a95bf2cb5a5)
 - [Handlebars template engine](http://requirebin.com/?gist=0413cdddfb3097e696eb)
 - [Paperclip template engine](http://requirebin.com/?gist=add1e20b9071e37fd9d1)
+- [Computed properties](http://requirebin.com/?gist=cafd6df55bb711c88a1d)
 
 ## API
 
@@ -233,16 +234,16 @@ Filters models from the list
 
 Bindings allow you to compute properties on each view.
 
+[Example](http://requirebin.com/?gist=cafd6df55bb711c88a1d):
+
 ```javascript
-var bindable = require("bindable");
+var views       = require("mojo-views"),
+    bindable    = require("bindable");
 
 var PersonView = views.Base.extend({
   bindings: {
     "model.firstName, model.lastName": function (firstName, lastName) {
-      this.textNode.value = "Hello " + firstName + " " + lastName;
-
-      // or do something like:
-      // this.set("fullName", firstName + " " + lastName);
+      this.textNode.nodeValue = "Hello " + firstName + " " + lastName;
     }
   },
   didCreateSection: function () {
@@ -251,7 +252,13 @@ var PersonView = views.Base.extend({
   }
 });
 
-var person = new PersonView();
+var person = new PersonView({
+  model: new bindable.Object({
+    firstName: "John",
+ 	lastName: "Gordon"
+  })
+});
+
 document.body.appendChild(person.render());
 ```
 
@@ -496,7 +503,7 @@ View:
 ```javascript
 var views = require("mojo-views");
 module.exports = views.Base.extend({
-    bindings: {
+    : {
         "firstName, lastName": function (firstName, lastName) {
             this.$(this.textNode).val(firstName + " " + lastName);
         }

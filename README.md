@@ -22,6 +22,8 @@ npm i mojo-views
 
 - https://github.com/mojo-js/mojo-todomvc-example
 - [Hello World](http://requirebin.com/?gist=9a3660353d6f828bd292)
+- [Sorted List view](http://requirebin.com/?gist=7ccce61d8a95bf2cb5a5)
+- [Stack View](http://requirebin.com/?gist=7ccce61d8a95bf2cb5a5)
 
 ## API
 
@@ -35,17 +37,21 @@ The base view that controls what the user sees and does
 - `properties` - the properties that get set on the view controller
 - `application` - (optional) the mojo application. If this is omitted, then the `global application` will be used.
 
+[Example](http://requirebin.com/?gist=a4af5f1b896589825799): 
+
 ```javascript
 var views = require("mojo-views");
+
 var HelloView = views.Base.extend({
     didCreateSection: function () {
-      this.section.appendChild(this.nodeFactory.createTextNode("Hello " + this.get("name")));
+      this.section.appendChild(this.application.nodeFactory.createTextNode("Hello " + this.get("name")));
     }
 });
 
 var helloView = new HelloView({ name: "Jeff" });
-document.body.appendChild(helloView.render()); // Hello Jeff
+document.body.appendChild(helloView.render());
 ```
+
 
 #### DocumentFragment base.render()
 

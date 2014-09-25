@@ -17,6 +17,7 @@ npm i mojo-views
 ### Features
 
 - Easy interpolation between other libraries such as Backbone, React, Angular, etc. (no lock-in)
+- Mojo views can run in the browser, along with Node.js.
 
 
 ## API
@@ -473,4 +474,47 @@ application.views.decorator({
 
 ## Unit Testing
 
-TODO
+Unit tests are very easy to write for mojo-views. Here's a basic example using `mocha`, and `expect.js`:
+
+View:
+
+```javascript
+var views = require("mojo-views");
+module.exports = views.Base.extend({
+    bindings: {
+        "firstName, lastName": function (firstName, lastName) {
+            this.$(this.textNode).val(firstName + " " + lastName);
+        }
+    },
+    didCreateSection: function () {
+        this.textNode = this.application.nodeFactory.createTextNode("");
+        this.section.appendChild(this.textNode);
+        
+    }
+});
+```
+
+Unit Test:
+
+```javascript
+var PersonView = require("./person"),
+expect = require("expect.js");
+
+describe(__filename + "#", function() {
+
+    var view;
+    
+    beforeEach(function() {
+        view = new PersonView();
+    });
+    
+    it("displays the information properly", function () {
+        var fragment = view.render();
+        view.setProperties({
+            firstName: "Liam",
+            lastName: "Don"
+        });
+        expect(fragment.chilNodes[0].nodeValue).to.be("Liam Don");
+    });
+});
+```

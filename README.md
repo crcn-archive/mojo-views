@@ -178,7 +178,7 @@ var items = new bindable.Collection([
 
 var ItemView = views.Base.extend({
   didCreateSection: function () {
-    this.section.append(this.nodeFactory.createTextNode(this.get("model.text")));
+    this.section.appendChild(this.nodeFactory.createTextNode(this.get("model.text")));
   }
 });
 
@@ -313,8 +313,8 @@ Views, just like variable scope, have the ability to inherit properties from the
 
 ```javascript
 var TodoView = views.List.extend({
-  willRender: function () {
-    this.section.append(this.nodeFactory.createTextNode(this.get("model.text")));
+  didCreateSection: function () {
+    this.section.appendChild(this.nodeFactory.createTextNode(this.get("model.text")));
   }
 });
 
@@ -329,9 +329,9 @@ var MainView = views.Base.extend({
   children: {
     todosList: TodosListView
   },
-  willRender: function () {
-    this.section.append(this.nodeFactory.createTextNode("Todos: "));
-    this.section.append(this.get("children.todosList").render());
+  didCreateSection: function () {
+    this.section.appendChild(this.nodeFactory.createTextNode("Todos: "));
+    this.section.appendChild(this.get("children.todosList").render());
   }
 });
 
@@ -361,7 +361,7 @@ var ChildView = views.Base.extend({
   define: ["message"],
   message: "Hello World!",
   willRender: function () {
-    this.section.append(this.nodeFactory.createTextNode(this.get("message")));
+    this.section.appendChild(this.nodeFactory.createTextNode(this.get("message")));
   }
 })
 
@@ -370,7 +370,7 @@ var ParentView = views.Base.extend({
     child: ChildView
   }
   willRender: function () {
-    this.section.append(this.get("children.child").render());
+    this.section.appendChild(this.get("children.child").render());
   }
 });
 

@@ -12,7 +12,6 @@ npm i mojo-views
 
 - [bindable.js](https://github.com/classdojo/bindable.js) - base class for each view
 - [mojo-paperclip](/mojo-js/mojo-paperclip) - template engine
-- [mojo-router](/mojo-js/mojo-pa)
 
 ### Features
 
@@ -63,6 +62,10 @@ Called once the `section` is created. This is usually where you might add elemen
 #### base.section
 
 The section, or virtual document fragment which contains all the elements. See [loaf.js](https://github.com/mojo-js/loaf.js) for further documentation.
+
+#### base.$
+
+node.js-safe query selector for document elements. Useful especially for unit testing.
 
 #### base.application
 

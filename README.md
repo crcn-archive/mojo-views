@@ -100,7 +100,7 @@ reference to the parent view
 - `render` - emitted when the view is rendered
 - `dispose` - emitted when the view is disposed
 
-### views.Stack(properties[, application])
+### views.Stack(properties[, [application](https://github.com/mojo-js/mojo-application)])
 
 Inherits [views.Base](#viewsbaseproperties-application)
 
@@ -152,7 +152,7 @@ pages.set("states", {
 });
 ```
 
-### views.List(properties[, application])
+### views.List(properties[, [application](https://github.com/mojo-js/mojo-application)])
 
 Inherits [views.Base](#viewsbaseproperties-application)
 

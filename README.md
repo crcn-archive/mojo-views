@@ -21,6 +21,7 @@ npm i mojo-views
 ### Examples
 
 - https://github.com/mojo-js/mojo-todomvc-example
+- [Hello World](http://requirebin.com/?gist=9a3660353d6f828bd292)
 
 ## API
 

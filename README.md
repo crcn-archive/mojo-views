@@ -25,6 +25,7 @@ npm i mojo-views
 - [Sorted List view](http://requirebin.com/?gist=7ccce61d8a95bf2cb5a5)
 - [Stack View](http://requirebin.com/?gist=7ccce61d8a95bf2cb5a5)
 - [Handlebars template engine](http://requirebin.com/?gist=add1e20b9071e37fd9d1)
+- [Paperclip template engine](http://requirebin.com/?gist=add1e20b9071e37fd9d1)
 
 ## API
 

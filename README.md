@@ -25,7 +25,7 @@ TODO
 ## API
 
 
-### views.Base(properties[, application])
+### views.Base(properties[, [application](https://github.com/mojo-js/mojo-application)])
 
 Inherits [bindable.Object](https://github.com/classdojo/bindable.js)
 

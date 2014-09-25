@@ -114,8 +114,7 @@ reference to the parent view
 
 Inherits [views.Base](#viewsbaseproperties-application)
 
-Contains a stack of views, where only one is displayed at a time. This class is useful
-when displaying different pages.
+The stack view is a container with many children where only one is displayed at a time. Stack views are very useful when building Single Page Applications with navigation, and often times with an HTTP router, such as [mojo-router](https://github.com/mojo-js/mojo-router).
 
 ```javascript
 var Pages = views.Stack.extend({
@@ -166,7 +165,7 @@ pages.set("states", {
 
 Inherits [views.Base](#viewsbaseproperties-application)
 
-Contains a list of views.
+Creates a list of views which is represented by a bindable collection. Note that each model is set as model property for each list item view created. See the example below.
 
 ```javascript
 var bindable = require("bindable");

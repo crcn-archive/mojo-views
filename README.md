@@ -8,11 +8,6 @@ Controls exactly what the user sees and does. View controllers are plugin-based 
 npm i mojo-views
 ```
 
-### See also
-
-- [bindable.js](https://github.com/classdojo/bindable.js) - base class for each view
-- [mojo-paperclip](/mojo-js/mojo-paperclip) - template engine
-
 ### Features
 
 - Easy interpolation between other libraries such as Backbone, React, Angular, etc. (no lock-in)
@@ -27,6 +22,12 @@ npm i mojo-views
 - [Handlebars template engine](http://requirebin.com/?gist=0413cdddfb3097e696eb)
 - [Paperclip template engine](http://requirebin.com/?gist=add1e20b9071e37fd9d1)
 - [Computed properties](http://requirebin.com/?gist=cafd6df55bb711c88a1d)
+
+
+### See also
+
+- [bindable.js](https://github.com/classdojo/bindable.js) - base class for each view
+- [mojo-paperclip](/mojo-js/mojo-paperclip) - template engine
 
 ## API
 

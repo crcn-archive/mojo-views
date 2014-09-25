@@ -33,7 +33,7 @@ npm i mojo-views
 
 ### views.Base(properties[, [application](https://github.com/mojo-js/mojo-application)])
 
-Inherits [bindable.Object](https://github.com/classdojo/bindable.js)
+Extends [bindable.Object](https://github.com/classdojo/bindable.js)
 
 The base view that controls what the user sees and does
 
@@ -112,7 +112,7 @@ reference to the parent view
 
 ### views.Stack(properties[, [application](https://github.com/mojo-js/mojo-application)])
 
-Inherits [views.Base](#viewsbaseproperties-application)
+Extends [views.Base](#viewsbaseproperties-application)
 
 The stack view is a container with many children where only one is displayed at a time. Stack views are very useful when building Single Page Applications with navigation, and often times with an HTTP router, such as [mojo-router](https://github.com/mojo-js/mojo-router).
 
@@ -163,7 +163,7 @@ pages.set("states", {
 
 ### views.List(properties[, [application](https://github.com/mojo-js/mojo-application)])
 
-Inherits [views.Base](#viewsbaseproperties-application)
+Extends [views.Base](#viewsbaseproperties-application)
 
 Creates a list of views which is represented by a bindable collection. Note that each model is set as model property for each list item view created. See the example below.
 

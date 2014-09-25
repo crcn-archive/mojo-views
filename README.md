@@ -520,7 +520,7 @@ describe(__filename + "#", function() {
             firstName: "Liam",
             lastName: "Don"
         });
-        expect(fragment.chilNodes[0].nodeValue).to.be("Liam Don");
+        expect(fragment.childNodes[0].nodeValue).to.be("Liam Don");
     });
 });
 ```

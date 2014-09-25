@@ -462,7 +462,7 @@ console.log(hello.name); // Craig
 #### application.views.decorator(decorator)
 
 Registers a view plugin. This is useful if you want to extend the functionality for each view. Super useful for 
-interpolation between different libraries. Here's an example of using a handlebars template engine:
+interpolation between different libraries. Here's an [example](http://requirebin.com/?gist=0413cdddfb3097e696eb) of using a handlebars template engine:
 
 ```javascript
 

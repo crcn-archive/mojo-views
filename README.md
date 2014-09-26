@@ -1,47 +1,61 @@
-### Mojo Views [![Build Status](https://travis-ci.org/classdojo/mojo-views.svg)](https://travis-ci.org/classdojo/mojo-views)
+[![Build Status](https://travis-ci.org/classdojo/mojo-views.svg)](https://travis-ci.org/classdojo/mojo-views)
 
-Mojo-views is the view layer for the Mojo.js framework. They are what give your application structure. 
+Controls exactly what the user sees and does. View controllers are plugin-based - they don't come with any special features out of the box, such as template engines. This allows you to fully customize exactly how view controllers behave. See [Decorators](#applicationviewsdecoratordecorator) to understand how to add / create plugins to views.
 
 ### Installation
 
 ```javascript
-npm i mojo-views
+npm install mojo-views
 ```
+
+### Features
+
+- Easy interpolation between other libraries such as Backbone, React, Angular, etc. (no lock-in)
+- Mojo views can run in the browser, along with Node.js.
+
+### Examples
+
+- https://github.com/mojo-js/mojo-todomvc-example
+- [Hello World](http://requirebin.com/?gist=a4af5f1b896589825799)
+- [Sorted List view](http://requirebin.com/?gist=7ccce61d8a95bf2cb5a5)
+- [Stack View](http://requirebin.com/?gist=7ccce61d8a95bf2cb5a5)
+- [Handlebars template engine](http://requirebin.com/?gist=0413cdddfb3097e696eb)
+- [Paperclip template engine](http://requirebin.com/?gist=add1e20b9071e37fd9d1)
+- [Computed properties](http://requirebin.com/?gist=cafd6df55bb711c88a1d)
+
 
 ### See also
 
 - [bindable.js](https://github.com/classdojo/bindable.js) - base class for each view
 - [mojo-paperclip](/mojo-js/mojo-paperclip) - template engine
-- [mojo-router](/mojo-js/mojo-pa)
-
-### Features
-
-- Easy interpolation between other libraries such as Backbone, React, Angular, etc. (no lock-in)
-
 
 ## API
 
 
-### views.Base(properties[, application])
+### views.Base(properties[, [application](https://github.com/mojo-js/mojo-application)])
 
-Inherits [bindable.Object](https://github.com/classdojo/bindable.js)
+Extends [bindable.Object](https://github.com/classdojo/bindable.js)
 
 The base view that controls what the user sees and does
 
 - `properties` - the properties that get set on the view controller
 - `application` - (optional) the mojo application. If this is omitted, then the `global application` will be used.
 
+[Example](http://requirebin.com/?gist=a4af5f1b896589825799): 
+
 ```javascript
 var views = require("mojo-views");
+
 var HelloView = views.Base.extend({
     didCreateSection: function () {
-      this.section.appendChild(this.nodeFactory.createTextNode("Hello " + this.get("name")));
+      this.section.appendChild(this.application.nodeFactory.createTextNode("Hello " + this.get("message") + "!"));
     }
 });
 
-var helloView = new HelloView({ name: "Jeff" });
-document.body.appendChild(helloView.render()); // Hello Jeff
+var helloView = new HelloView({ message: "World" });
+document.body.appendChild(helloView.render());
 ```
+
 
 #### DocumentFragment base.render()
 
@@ -62,6 +76,10 @@ Called once the `section` is created. This is usually where you might add elemen
 #### base.section
 
 The section, or virtual document fragment which contains all the elements. See [loaf.js](https://github.com/mojo-js/loaf.js) for further documentation.
+
+#### base.$
+
+node.js-safe query selector for document elements. Useful especially for unit testing.
 
 #### base.application
 
@@ -87,12 +105,17 @@ true / false if the view is currently visible to the user
 
 reference to the parent view
 
-### views.Stack(properties[, application])
+#### events
 
-Inherits [views.Base](#viewsbaseproperties-application)
+- `remove` - emitted when the view is removed
+- `render` - emitted when the view is rendered
+- `dispose` - emitted when the view is disposed
 
-Contains a stack of views, where only one is displayed at a time. This class is useful
-when displaying different pages.
+### views.Stack(properties[, [application](https://github.com/mojo-js/mojo-application)])
+
+Extends [views.Base](#viewsbaseproperties-application)
+
+The stack view is a container with many children where only one is displayed at a time. Stack views are very useful when building Single Page Applications with navigation, and often times with an HTTP router, such as [mojo-router](https://github.com/mojo-js/mojo-router).
 
 ```javascript
 var Pages = views.Stack.extend({
@@ -139,11 +162,11 @@ pages.set("states", {
 });
 ```
 
-### views.List(properties[, application])
+### views.List(properties[, [application](https://github.com/mojo-js/mojo-application)])
 
-Inherits [views.Base](#viewsbaseproperties-application)
+Extends [views.Base](#viewsbaseproperties-application)
 
-Contains a list of views.
+Creates a list of views which is represented by a bindable collection. Note that each model is set as model property for each list item view created. See the example below.
 
 ```javascript
 var bindable = require("bindable");
@@ -156,7 +179,7 @@ var items = new bindable.Collection([
 
 var ItemView = views.Base.extend({
   didCreateSection: function () {
-    this.section.append(this.nodeFactory.createTextNode(this.get("model.text")));
+    this.section.appendChild(this.nodeFactory.createTextNode(this.get("model.text")));
   }
 });
 
@@ -211,16 +234,16 @@ Filters models from the list
 
 Bindings allow you to compute properties on each view.
 
+[Example](http://requirebin.com/?gist=cafd6df55bb711c88a1d):
+
 ```javascript
-var bindable = require("bindable");
+var views       = require("mojo-views"),
+    bindable    = require("bindable");
 
 var PersonView = views.Base.extend({
   bindings: {
     "model.firstName, model.lastName": function (firstName, lastName) {
-      this.textNode.value = "Hello " + firstName + " " + lastName;
-
-      // or do something like:
-      // this.set("fullName", firstName + " " + lastName);
+      this.textNode.nodeValue = "Hello " + firstName + " " + lastName;
     }
   },
   didCreateSection: function () {
@@ -229,7 +252,13 @@ var PersonView = views.Base.extend({
   }
 });
 
-var person = new PersonView();
+var person = new PersonView({
+  model: new bindable.Object({
+    firstName: "John",
+ 	lastName: "Gordon"
+  })
+});
+
 document.body.appendChild(person.render());
 ```
 
@@ -291,8 +320,8 @@ Views, just like variable scope, have the ability to inherit properties from the
 
 ```javascript
 var TodoView = views.List.extend({
-  willRender: function () {
-    this.section.append(this.nodeFactory.createTextNode(this.get("model.text")));
+  didCreateSection: function () {
+    this.section.appendChild(this.nodeFactory.createTextNode(this.get("model.text")));
   }
 });
 
@@ -307,9 +336,9 @@ var MainView = views.Base.extend({
   children: {
     todosList: TodosListView
   },
-  willRender: function () {
-    this.section.append(this.nodeFactory.createTextNode("Todos: "));
-    this.section.append(this.get("children.todosList").render());
+  didCreateSection: function () {
+    this.section.appendChild(this.nodeFactory.createTextNode("Todos: "));
+    this.section.appendChild(this.get("children.todosList").render());
   }
 });
 
@@ -339,7 +368,7 @@ var ChildView = views.Base.extend({
   define: ["message"],
   message: "Hello World!",
   willRender: function () {
-    this.section.append(this.nodeFactory.createTextNode(this.get("message")));
+    this.section.appendChild(this.nodeFactory.createTextNode(this.get("message")));
   }
 })
 
@@ -348,7 +377,7 @@ var ParentView = views.Base.extend({
     child: ChildView
   }
   willRender: function () {
-    this.section.append(this.get("children.child").render());
+    this.section.appendChild(this.get("children.child").render());
   }
 });
 
@@ -369,10 +398,6 @@ views           = require("mojo-views");
 
 var app = new Application();
 app.use(views);
-```
-
-```javascript
-application.use(require("mojo-views"));
 ```
 
 #### application.views.register(viewNameOrClasses[, class])
@@ -438,7 +463,7 @@ console.log(hello.name); // Craig
 #### application.views.decorator(decorator)
 
 Registers a view plugin. This is useful if you want to extend the functionality for each view. Super useful for 
-interpolation between different libraries. Here's an example of using a handlebars template engine:
+interpolation between different libraries. Here's an [example](http://requirebin.com/?gist=0413cdddfb3097e696eb) of using a handlebars template engine:
 
 ```javascript
 
@@ -467,4 +492,51 @@ application.views.decorator({
     view.on("change", render);
   }
 })
+```
+
+## Unit Testing
+
+Unit tests are very easy to write for mojo-views. Here's a basic example using `mocha`, and `expect.js`:
+
+View:
+
+```javascript
+var views = require("mojo-views");
+module.exports = views.Base.extend({
+    : {
+        "firstName, lastName": function (firstName, lastName) {
+            this.$(this.textNode).val(firstName + " " + lastName);
+        }
+    },
+    didCreateSection: function () {
+        this.textNode = this.application.nodeFactory.createTextNode("");
+        this.section.appendChild(this.textNode);
+        
+    }
+});
+```
+
+Unit Test:
+
+```javascript
+var PersonView = require("./person"),
+expect = require("expect.js");
+
+describe(__filename + "#", function() {
+
+    var view;
+    
+    beforeEach(function() {
+        view = new PersonView();
+    });
+    
+    it("displays the information properly", function () {
+        var fragment = view.render();
+        view.setProperties({
+            firstName: "Liam",
+            lastName: "Don"
+        });
+        expect(fragment.childNodes[0].nodeValue).to.be("Liam Don");
+    });
+});
 ```

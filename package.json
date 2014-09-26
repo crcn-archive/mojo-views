@@ -1,6 +1,6 @@
 {
   "name": "mojo-views",
-  "version": "0.1.26",
+  "version": "0.1.27",
   "description": "modular mv+ JavaScript framework for node, and the web",
   "main": "./lib/index.js",
   "jam": {

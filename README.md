@@ -5,7 +5,7 @@ Controls exactly what the user sees and does. View controllers are plugin-based 
 ### Installation
 
 ```javascript
-npm i mojo-views
+npm install mojo-views
 ```
 
 ### Features

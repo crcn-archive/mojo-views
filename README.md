@@ -1,4 +1,4 @@
-### Mojo Views [![Build Status](https://travis-ci.org/classdojo/mojo-views.svg)](https://travis-ci.org/classdojo/mojo-views)
+[![Build Status](https://travis-ci.org/classdojo/mojo-views.svg)](https://travis-ci.org/classdojo/mojo-views)
 
 Controls exactly what the user sees and does. View controllers are plugin-based - they don't come with any special features out of the box, such as template engines. This allows you to fully customize exactly how view controllers behave. See [Decorators](#applicationviewsdecoratordecorator) to understand how to add / create plugins to views.
 

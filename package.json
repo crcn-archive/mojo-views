@@ -3,23 +3,6 @@
   "version": "0.1.27",
   "description": "modular mv+ JavaScript framework for node, and the web",
   "main": "./lib/index.js",
-  "jam": {
-    "baseUrl": "public",
-    "packageDir": "public/vendor",
-    "dependencies": {
-      "jquery": "1.7.x",
-      "jquery-transit": "*",
-      "underscore": "*",
-      "events": "0.0.x",
-      "async": "0.2.x"
-    },
-    "config": {
-      "repository": "http://npm.classdojo.com:5984/jam",
-      "paths": {
-        "templates": "public/templates"
-      }
-    }
-  },
   "scripts": {
     "test": "make test-node"
   },
@@ -27,7 +10,7 @@
     "mojo-plugin"
   ],
   "repository": {
-    "url": "git://github.com/classdojo/mojo.js.git"
+    "url": "git://github.com/mojo-js/mojo-views.git"
   },
   "dependencies": {
     "type-component": "0.0.x",

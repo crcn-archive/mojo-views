@@ -1,6 +1,6 @@
 {
   "name": "mojo-views",
-  "version": "0.1.32",
+  "version": "0.2.0",
   "description": "modular mv+ JavaScript framework for node, and the web",
   "main": "./lib/index.js",
   "scripts": {
@@ -15,7 +15,7 @@
   },
   "dependencies": {
     "type-component": "0.0.x",
-    "bindable": "0.5.x",
+    "bindable": "0.6.x",
     "janitorjs": "0.0.4",
     "factories": "0.0.x",
     "loaf": "0.2.x",

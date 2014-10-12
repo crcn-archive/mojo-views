@@ -180,6 +180,8 @@ describe("list/basic#", function () {
     expect(list.render().toString()).to.be("a,b,");
     list.set("source", void 0);
     expect(list.render().toString()).to.be("");
+    list.set("source", [{ name: "c" },{name:"d"}]);
+    expect(list.render().toString()).to.be("c,d,");
   })
 
 });

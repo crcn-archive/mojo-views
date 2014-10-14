@@ -3,6 +3,8 @@ expect    = require("expect.js"),
 bindable  = require("bindable"),
 sinon     = require("sinon");
 
+
+
 describe("list/basic#", function () {
 
   var source;
@@ -16,7 +18,7 @@ describe("list/basic#", function () {
 
   var ItemView = views.Base.extend({
     didCreateSection: function () {
-      this.section.append(this.application.nodeFactory.createTextNode(this.get("model.name") + ","));
+      this.section.append(this.application.nodeFactory.createTextNode(this.model.name + ","));
     }
   });
 

@@ -1,6 +1,6 @@
 {
   "name": "mojo-views",
-  "version": "0.2.4",
+  "version": "0.2.5",
   "description": "modular mv+ JavaScript framework for node, and the web",
   "main": "./lib/index.js",
   "scripts": {
@@ -30,7 +30,7 @@
     "boojs": "0.0.x",
     "async": "0.x.x",
     "mojo-animator": "0.0.x",
-    "mojo-application": "0.0.x",
+    "mojo-application": "0.1.x",
     "frills": "0.0.x",
     "mojo-registered-classes": "0.1.x",
     "noselector": "0.0.x"

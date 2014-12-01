@@ -1,12 +1,13 @@
 var views = require("../.."),
 expect    = require("expect.js"),
-bindable  = require("bindable");
+BindableObject  = require("bindable-object"),
+BindableCollection  = require("bindable-collection");
 
 describe("list/max#", function () {
 
-  var source = new bindable.Collection([
-    new bindable.Object({ name: "a" }),
-    new bindable.Object({ name: "b" })
+  var source = new BindableCollection([
+    new BindableObject({ name: "a" }),
+    new BindableObject({ name: "b" })
   ]);
 
   return;

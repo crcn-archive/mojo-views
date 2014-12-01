@@ -1,17 +1,18 @@
 var views = require("../.."),
 expect    = require("expect.js"),
-bindable  = require("bindable");
+BindableObject  = require("bindable-object"),
+BindableCollection  = require("bindable-collection");
 
 describe("list/sort#", function () {
 
   var source;
 
   beforeEach(function() {
-    source = new bindable.Collection([
-      new bindable.Object({ priority: 0 }),
-      new bindable.Object({ priority: 1 }),
-      new bindable.Object({ priority: 2 }),
-      new bindable.Object({ priority: 3 })
+    source = new BindableCollection([
+      new BindableObject({ priority: 0 }),
+      new BindableObject({ priority: 1 }),
+      new BindableObject({ priority: 2 }),
+      new BindableObject({ priority: 3 })
     ]);
   });
 
@@ -44,11 +45,11 @@ describe("list/sort#", function () {
     });
 
     expect(list.render().toString()).to.be("3,2,1,0,");
-    source.push(new bindable.Object({ priority: 2.5 }));
+    source.push(new BindableObject({ priority: 2.5 }));
     expect(list.render().toString()).to.be("3,2.5,2,1,0,");
-    source.push(new bindable.Object({ priority: 4 }));
+    source.push(new BindableObject({ priority: 4 }));
     expect(list.render().toString()).to.be("4,3,2.5,2,1,0,");
-    source.push(new bindable.Object({ priority: -1 }));
+    source.push(new BindableObject({ priority: -1 }));
     expect(list.render().toString()).to.be("4,3,2.5,2,1,0,-1,");
   });
 
@@ -63,10 +64,10 @@ describe("list/sort#", function () {
 
     expect(list.render().toString()).to.be("3,2,1,0,");
 
-    list.set("source", new bindable.Collection([
-      new bindable.Object({ priority: 5 }),
-      new bindable.Object({ priority: 4 }),
-      new bindable.Object({ priority: 6 })
+    list.set("source", new BindableCollection([
+      new BindableObject({ priority: 5 }),
+      new BindableObject({ priority: 4 }),
+      new BindableObject({ priority: 6 })
     ]));
 
     expect(list.render().toString()).to.be("6,5,4,");
@@ -98,16 +99,16 @@ describe("list/sort#", function () {
       }
     });
 
-    var sa = new bindable.Collection([
-      new bindable.Object({ g: "a" }),
-      new bindable.Object({ g: "a" }),
-      new bindable.Object({ g: "a" }),
-      new bindable.Object({ g: "a" })
+    var sa = new BindableCollection([
+      new BindableObject({ g: "a" }),
+      new BindableObject({ g: "a" }),
+      new BindableObject({ g: "a" }),
+      new BindableObject({ g: "a" })
     ]);
 
-    var sb = new bindable.Collection([
-      new bindable.Object({ g: "b" }),
-      new bindable.Object({ g: "b" }),
+    var sb = new BindableCollection([
+      new BindableObject({ g: "b" }),
+      new BindableObject({ g: "b" }),
     ]);
 
     var list = new views.List({

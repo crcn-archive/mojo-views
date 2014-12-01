@@ -1,6 +1,7 @@
 var views = require("../.."),
 expect    = require("expect.js"),
-bindable  = require("bindable"),
+BindableObject  = require("bindable-object"),
+BindableCollection  = require("bindable-collection"),
 sinon     = require("sinon");
 
 
@@ -10,9 +11,9 @@ describe("list/basic#", function () {
   var source;
 
   beforeEach(function() {
-    source = new bindable.Collection([
-      new bindable.Object({ name: "a" }),
-      new bindable.Object({ name: "b" })
+    source = new BindableCollection([
+      new BindableObject({ name: "a" }),
+      new BindableObject({ name: "b" })
     ]);
   });
 
@@ -59,7 +60,7 @@ describe("list/basic#", function () {
     });
 
     expect(list.render().toString()).to.be("a,b,");
-    source.push(new bindable.Object({ name: "c" }));
+    source.push(new BindableObject({ name: "c" }));
     expect(list.render().toString()).to.be("a,b,c,");
   });
 
@@ -103,9 +104,9 @@ describe("list/basic#", function () {
     });
 
     expect(list.render().toString()).to.be("a,b,");
-    list.set("source", new bindable.Collection([
-      new bindable.Object({ name: "c" }),
-      new bindable.Object({ name: "d" })
+    list.set("source", new BindableCollection([
+      new BindableObject({ name: "c" }),
+      new BindableObject({ name: "d" })
     ]));
     expect(list.render().toString()).to.be("c,d,");
   });
@@ -120,9 +121,9 @@ describe("list/basic#", function () {
     list.render();
 
     expect(list.render().toString()).to.be("a,b,");
-    list.set("source", new bindable.Collection([
-      new bindable.Object({ name: "c" }),
-      new bindable.Object({ name: "d" })
+    list.set("source", new BindableCollection([
+      new BindableObject({ name: "c" }),
+      new BindableObject({ name: "d" })
     ]));
     expect(list.render().toString()).to.be("c,d,");
 
@@ -165,9 +166,9 @@ describe("list/basic#", function () {
 
     expect(list.render().toString()).to.be("a,b,");
 
-    list.set("src", new bindable.Collection([
-      new bindable.Object({ name: "c" }),
-      new bindable.Object({ name: "d" })
+    list.set("src", new BindableCollection([
+      new BindableObject({ name: "c" }),
+      new BindableObject({ name: "d" })
     ]));
 
     expect(list.render().toString()).to.be("c,d,");

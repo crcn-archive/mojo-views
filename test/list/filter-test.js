@@ -1,18 +1,19 @@
 var views = require("../.."),
 expect    = require("expect.js"),
-bindable  = require("bindable");
+BindableObject  = require("bindable-object"),
+BindableCollection  = require("bindable-collection");
 
 describe("list/filter#", function () {
 
   var source;
 
   beforeEach(function() {
-    source = new bindable.Collection([
-      new bindable.Object({ _id: 0, completed: false }),
-      new bindable.Object({ _id: 1, completed: false }),
-      new bindable.Object({ _id: 2, completed: true }),
-      new bindable.Object({ _id: 3, completed: false }),
-      new bindable.Object({ _id: 4, completed: true })
+    source = new BindableCollection([
+      new BindableObject({ _id: 0, completed: false }),
+      new BindableObject({ _id: 1, completed: false }),
+      new BindableObject({ _id: 2, completed: true }),
+      new BindableObject({ _id: 3, completed: false }),
+      new BindableObject({ _id: 4, completed: true })
     ]);
   });
 
@@ -48,8 +49,8 @@ describe("list/filter#", function () {
     });
 
     list.render();
-    source.push(new bindable.Object({ _id: -1 }));
-    source.push(new bindable.Object({ _id: 5 }));
+    source.push(new BindableObject({ _id: -1 }));
+    source.push(new BindableObject({ _id: 5 }));
     expect(list.render().toString()).to.be("3,4,5,");
   });
 
@@ -110,7 +111,7 @@ describe("list/filter#", function () {
     expect(list.render().toString()).to.be("");
 
     var model;
-    source.push(model = new bindable.Object({ _id: 5 }));
+    source.push(model = new BindableObject({ _id: 5 }));
     expect(list.render().toString()).to.be("");
     model.set("name", "a");
     expect(list.render().toString()).to.be("5,");

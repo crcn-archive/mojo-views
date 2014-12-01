@@ -1,6 +1,6 @@
 {
   "name": "mojo-views",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "description": "modular mv+ JavaScript framework for node, and the web",
   "main": "./lib/index.js",
   "scripts": {
@@ -25,10 +25,10 @@
     "janitorjs": "0.0.4",
     "loaf": "0.2.x",
     "mojo-animator": "0.0.x",
-    "mojo-application": "0.1.x",
-    "mojo-registered-classes": "0.1.x",
+    "mojo-application": "0.2.x",
+    "mojo-registered-classes": "0.2.x",
     "nofactor": "0.0.x",
-    "noselector": "0.0.x",
+    "noselector": "0.1.x",
     "poolparty": "0.0.x",
     "protoclass": "0.0.5",
     "runlater": "0.0.x",
@@ -38,7 +38,6 @@
   },
   "devDependencies": {
     "expect.js": "~0.2.0",
-    "paperclip": "0.3.x",
     "jsdom": "~0.8.9",
     "mocha": "~1.15.1",
     "istanbul": "~0.1.46",

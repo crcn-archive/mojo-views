@@ -91,7 +91,7 @@ describe("list/sort#", function () {
 
   it("resorts a list when the sort function changes", function () { });
 
-  it("can toggle sources", function () {
+  xit("can toggle sources", function () {
 
     var GroupView = views.Base.extend({
       didCreateSection: function () {
